@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(tree:*)",
+      "Bash(javac:*)",
+      "Bash(mvn compile exec:java:*)",
+      "Bash(mvn clean compile:*)",
+      "Bash(mvn compile:*)",
+      "Bash(cat:*)",
+      "Bash(mvn clean package:*)",
+      "Bash(mysql:*)",
+      "Bash(where:*)",
+      "Bash(nul)",
+      "Bash(mvn package:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
