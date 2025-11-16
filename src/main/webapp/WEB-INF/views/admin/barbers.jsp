@@ -313,66 +313,16 @@
                     </div>
                 </div>
 
-                <!-- Pagination Controls -->
-                <c:if test="${totalPages > 1}">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-6); padding: var(--space-4); background: white; border-radius: var(--radius-lg); border: 1px solid var(--color-neutral-200);">
-                        <div style="color: var(--color-neutral-700); font-size: var(--text-sm);">
-                            Page <strong>${currentPage}</strong> sur <strong>${totalPages}</strong>
-                            <span style="margin-left: var(--space-3); color: var(--color-neutral-500);">
-                                (${totalBarbers} coiffeur(s) au total)
-                            </span>
-                        </div>
-                        <div style="display: flex; gap: var(--space-2);">
-                            <!-- First Page -->
-                            <c:if test="${currentPage > 1}">
-                                <a href="${pageContext.request.contextPath}/admin/barbers?page=1"
-                                   class="btn btn-secondary btn-sm"
-                                   title="Première page">
-                                    <i class="fas fa-angle-double-left"></i>
-                                </a>
-                            </c:if>
-
-                            <!-- Previous Page -->
-                            <c:if test="${currentPage > 1}">
-                                <a href="${pageContext.request.contextPath}/admin/barbers?page=${currentPage - 1}"
-                                   class="btn btn-secondary btn-sm"
-                                   title="Page précédente">
-                                    <i class="fas fa-angle-left"></i>
-                                    Précédent
-                                </a>
-                            </c:if>
-
-                            <!-- Page Numbers -->
-                            <c:forEach var="i" begin="${currentPage - 2 > 0 ? currentPage - 2 : 1}"
-                                       end="${currentPage + 2 < totalPages ? currentPage + 2 : totalPages}">
-                                <a href="${pageContext.request.contextPath}/admin/barbers?page=${i}"
-                                   class="btn ${i == currentPage ? 'btn-primary' : 'btn-secondary'} btn-sm"
-                                   style="min-width: 40px;">
-                                    ${i}
-                                </a>
-                            </c:forEach>
-
-                            <!-- Next Page -->
-                            <c:if test="${currentPage < totalPages}">
-                                <a href="${pageContext.request.contextPath}/admin/barbers?page=${currentPage + 1}"
-                                   class="btn btn-secondary btn-sm"
-                                   title="Page suivante">
-                                    Suivant
-                                    <i class="fas fa-angle-right"></i>
-                                </a>
-                            </c:if>
-
-                            <!-- Last Page -->
-                            <c:if test="${currentPage < totalPages}">
-                                <a href="${pageContext.request.contextPath}/admin/barbers?page=${totalPages}"
-                                   class="btn btn-secondary btn-sm"
-                                   title="Dernière page">
-                                    <i class="fas fa-angle-double-right"></i>
-                                </a>
-                            </c:if>
-                        </div>
-                    </div>
-                </c:if>
+                <!-- Pagination -->
+                <c:set var="baseUrl" value="${pageContext.request.contextPath}/admin/barbers" />
+                <c:set var="itemName" value="coiffeur(s)" />
+                <jsp:include page="../components/pagination.jsp">
+                    <jsp:param name="currentPage" value="${currentPage}" />
+                    <jsp:param name="totalPages" value="${totalPages}" />
+                    <jsp:param name="baseUrl" value="${baseUrl}" />
+                    <jsp:param name="totalItems" value="${totalBarbers}" />
+                    <jsp:param name="itemName" value="${itemName}" />
+                </jsp:include>
             </c:otherwise>
         </c:choose>
     </main>
