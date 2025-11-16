@@ -75,7 +75,7 @@
                                     <td>${client.phone}</td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${client.loyaltyStatus == 'FIDELE'}">
+                                            <c:when test="${client.loyaltyStatus == 'fidele'}">
                                                 <span class="badge" style="background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light)); color: white;">
                                                     <i class="fas fa-crown"></i> Fidèle
                                                 </span>
