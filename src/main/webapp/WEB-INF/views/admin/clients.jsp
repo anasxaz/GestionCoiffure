@@ -238,6 +238,17 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Pagination -->
+                <c:set var="baseUrl" value="${pageContext.request.contextPath}/admin/clients" />
+                <c:set var="itemName" value="client(s)" />
+                <jsp:include page="../components/pagination.jsp">
+                    <jsp:param name="currentPage" value="${currentPage}" />
+                    <jsp:param name="totalPages" value="${totalPages}" />
+                    <jsp:param name="baseUrl" value="${baseUrl}" />
+                    <jsp:param name="totalItems" value="${totalClients}" />
+                    <jsp:param name="itemName" value="${itemName}" />
+                </jsp:include>
             </div>
         </main>
     </div>

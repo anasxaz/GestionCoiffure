@@ -166,6 +166,17 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Pagination -->
+                <c:set var="baseUrl" value="${pageContext.request.contextPath}/barber/appointments" />
+                <c:set var="itemName" value="rendez-vous" />
+                <jsp:include page="../components/pagination.jsp">
+                    <jsp:param name="currentPage" value="${currentPage}" />
+                    <jsp:param name="totalPages" value="${totalPages}" />
+                    <jsp:param name="baseUrl" value="${baseUrl}" />
+                    <jsp:param name="totalItems" value="${totalAppointments}" />
+                    <jsp:param name="itemName" value="${itemName}" />
+                </jsp:include>
             </c:when>
             <c:otherwise>
                 <div class="empty-state">
