@@ -84,12 +84,9 @@
                         <i class="fas fa-gift" style="color: var(--color-accent);"></i>
                     </div>
                     <div class="stat-card-content">
-                        <div class="stat-card-label">Avantages</div>
-                        <div class="stat-card-value" style="font-size: var(--text-sm);">
-                            <c:choose>
-                                <c:when test="${client.loyaltyStatus == 'FIDELE'}">Actifs</c:when>
-                                <c:otherwise>Standard</c:otherwise>
-                            </c:choose>
+                        <div class="stat-card-label">Offres Disponibles</div>
+                        <div class="stat-card-value">
+                            ${unusedOffersCount != null ? unusedOffersCount : 0}
                         </div>
                     </div>
                 </div>

@@ -82,10 +82,12 @@ public class BarberCreateAppointmentServlet extends HttpServlet {
             }
 
             LocalTime endTime = startTime.plusMinutes(service.getDuration());
-            
-            // Check availability
-            if (!appointmentDAO.isTimeSlotAvailable(barberId, date, startTime, endTime)) {
-                request.setAttribute("error", "Ce créneau n'est pas disponible");
+
+            // Check barber availability (checks both schedule and conflicts)
+            boolean isAvailable = appointmentDAO.isBarberAvailable(barberId, date, startTime, endTime);
+
+            if (!isAvailable) {
+                request.setAttribute("error", "Vous n'êtes pas disponible à ce créneau. Veuillez vérifier votre planning ou choisir un autre horaire.");
                 doGet(request, response);
                 return;
             }

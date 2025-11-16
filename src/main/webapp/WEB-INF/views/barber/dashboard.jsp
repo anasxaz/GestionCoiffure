@@ -58,12 +58,7 @@
                     <div class="stat-details">
                         <span class="stat-label" style="color: #000000 !important;">Aujourd'hui</span>
                         <span class="stat-value" style="color: #000000 !important;">
-                            <c:choose>
-                                <c:when test="${not empty todayAppointments}">
-                                    ${todayAppointments}
-                                </c:when>
-                                <c:otherwise>8</c:otherwise>
-                            </c:choose>
+                            ${todayAppointments != null ? todayAppointments : 0}
                         </span>
                     </div>
                 </div>
@@ -75,12 +70,7 @@
                     <div class="stat-details">
                         <span class="stat-label" style="color: #000000 !important;">Confirmés</span>
                         <span class="stat-value" style="color: #000000 !important;">
-                            <c:choose>
-                                <c:when test="${not empty confirmedAppointments}">
-                                    ${confirmedAppointments}
-                                </c:when>
-                                <c:otherwise>6</c:otherwise>
-                            </c:choose>
+                            ${confirmedAppointments != null ? confirmedAppointments : 0}
                         </span>
                     </div>
                 </div>
@@ -92,12 +82,7 @@
                     <div class="stat-details">
                         <span class="stat-label" style="color: #000000 !important;">En Attente</span>
                         <span class="stat-value" style="color: #000000 !important;">
-                            <c:choose>
-                                <c:when test="${not empty pendingAppointments}">
-                                    ${pendingAppointments}
-                                </c:when>
-                                <c:otherwise>3</c:otherwise>
-                            </c:choose>
+                            ${pendingAppointments != null ? pendingAppointments : 0}
                         </span>
                     </div>
                 </div>
@@ -109,12 +94,7 @@
                     <div class="stat-details">
                         <span class="stat-label" style="color: #000000 !important;">Clients Mois</span>
                         <span class="stat-value" style="color: #000000 !important;">
-                            <c:choose>
-                                <c:when test="${not empty monthlyClients}">
-                                    ${monthlyClients}
-                                </c:when>
-                                <c:otherwise>142</c:otherwise>
-                            </c:choose>
+                            ${monthlyClients != null ? monthlyClients : 0}
                         </span>
                     </div>
                 </div>

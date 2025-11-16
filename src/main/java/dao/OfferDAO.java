@@ -209,24 +209,89 @@ public class OfferDAO {
     }
     
     /**
-     * Redeem offer for client
+     * Redeem offer for client (deducts points and creates redemption record)
      */
     public boolean redeemOffer(int clientId, int offerId) {
-        String sql = "INSERT INTO OfferRedemption (client_id, offer_id) VALUES (?, ?)";
-        
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            stmt.setInt(1, clientId);
-            stmt.setInt(2, offerId);
-            
-            return stmt.executeUpdate() > 0;
-            
+        Connection conn = null;
+        PreparedStatement stmt1 = null;
+        PreparedStatement stmt2 = null;
+        PreparedStatement stmt3 = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DatabaseUtil.getConnection();
+            conn.setAutoCommit(false); // Start transaction
+
+            // 1. Get offer details to know points required
+            String getOfferSql = "SELECT points_required FROM Offer WHERE offer_id = ?";
+            stmt1 = conn.prepareStatement(getOfferSql);
+            stmt1.setInt(1, offerId);
+            rs = stmt1.executeQuery();
+
+            if (!rs.next()) {
+                conn.rollback();
+                return false; // Offer not found
+            }
+
+            int pointsRequired = rs.getInt("points_required");
+            rs.close();
+            stmt1.close();
+
+            // 2. Deduct points from client
+            String deductPointsSql = "UPDATE Client SET points_balance = points_balance - ? WHERE client_id = ? AND points_balance >= ?";
+            stmt2 = conn.prepareStatement(deductPointsSql);
+            stmt2.setInt(1, pointsRequired);
+            stmt2.setInt(2, clientId);
+            stmt2.setInt(3, pointsRequired);
+
+            int rowsUpdated = stmt2.executeUpdate();
+            if (rowsUpdated == 0) {
+                conn.rollback();
+                return false; // Not enough points
+            }
+            stmt2.close();
+
+            // 3. Create redemption record
+            String insertRedemptionSql = "INSERT INTO OfferRedemption (client_id, offer_id) VALUES (?, ?)";
+            stmt3 = conn.prepareStatement(insertRedemptionSql);
+            stmt3.setInt(1, clientId);
+            stmt3.setInt(2, offerId);
+
+            boolean success = stmt3.executeUpdate() > 0;
+
+            if (success) {
+                conn.commit();
+                return true;
+            } else {
+                conn.rollback();
+                return false;
+            }
+
         } catch (SQLException e) {
             System.err.println("Error redeeming offer: " + e.getMessage());
             e.printStackTrace();
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt1 != null) stmt1.close();
+                if (stmt2 != null) stmt2.close();
+                if (stmt3 != null) stmt3.close();
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        
+
         return false;
     }
     

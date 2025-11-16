@@ -74,6 +74,23 @@
                     Le nouveau coiffeur a été ajouté au système.
                 </div>
             </div>
+            <c:if test="${not empty param.barberId}">
+                <div class="alert alert-info" style="margin-top: 1rem;">
+                    <i class="fas fa-calendar-plus alert-icon"></i>
+                    <div class="alert-content">
+                        <div class="alert-title">N'oubliez pas de configurer les disponibilités!</div>
+                        <div style="margin-top: 0.5rem;">
+                            Pour que le coiffeur puisse recevoir des rendez-vous, vous devez configurer ses horaires de disponibilité.
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <a href="${pageContext.request.contextPath}/admin/availability?action=add&barberId=${param.barberId}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-clock"></i>
+                                Configurer les disponibilités maintenant
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
         </c:if>
 
         <c:if test="${param.success == 'updated'}">
@@ -205,7 +222,7 @@
 
                 <!-- Table Container -->
                 <div class="table-container with-actions">
-                    <table class="table">
+                    <table class="table" id="barbersTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -280,6 +297,11 @@
                             </c:forEach>
                         </tbody>
                     </table>
+                    <div id="noResultsMessage" style="display: none; padding: 2rem; text-align: center; color: var(--color-neutral-500);">
+                        <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p style="font-size: 1.1rem; font-weight: 500;">Aucun coiffeur trouvé</p>
+                        <p style="font-size: 0.9rem;">Essayez de modifier vos critères de recherche</p>
+                    </div>
                 </div>
             </c:otherwise>
         </c:choose>
@@ -305,7 +327,10 @@
             const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
             const statusValue = statusFilter ? statusFilter.value : '';
             const rows = tableBody.getElementsByTagName('tr');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const table = document.getElementById('barbersTable');
 
+            let visibleCount = 0;
             for (let row of rows) {
                 const name = row.querySelector('td:nth-child(2)') ? row.querySelector('td:nth-child(2)').textContent.toLowerCase() : '';
                 const email = row.querySelector('td:nth-child(3)') ? row.querySelector('td:nth-child(3)').textContent.toLowerCase() : '';
@@ -314,7 +339,20 @@
                 const matchesSearch = name.includes(searchTerm) || email.includes(searchTerm);
                 const matchesStatus = statusValue === '' || status === statusValue;
 
-                row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+                if (matchesSearch && matchesStatus) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+
+            if (visibleCount === 0) {
+                table.style.display = 'none';
+                noResultsMessage.style.display = 'block';
+            } else {
+                table.style.display = 'table';
+                noResultsMessage.style.display = 'none';
             }
         }
     </script>
