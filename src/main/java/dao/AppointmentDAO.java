@@ -59,21 +59,80 @@ public class AppointmentDAO {
                      "JOIN Barber b ON a.barber_id = b.barber_id " +
                      "JOIN Service s ON a.service_id = s.service_id " +
                      "ORDER BY a.date DESC, a.start_time DESC";
-        
+
         try (Connection conn = DatabaseUtil.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-            
+
             while (rs.next()) {
                 appointments.add(extractAppointmentFromResultSet(rs));
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Error finding all appointments: " + e.getMessage());
             e.printStackTrace();
         }
-        
+
         return appointments;
+    }
+
+    /**
+     * Get paginated list of appointments
+     * @param page Page number (1-based)
+     * @param pageSize Number of records per page
+     * @return List of appointments for the specified page
+     */
+    public List<Appointment> findAll(int page, int pageSize) {
+        List<Appointment> appointments = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
+        String sql = "SELECT a.*, c.name as client_name, b.name as barber_name, s.name as service_name, s.price as service_price " +
+                     "FROM Appointment a " +
+                     "JOIN Client c ON a.client_id = c.client_id " +
+                     "JOIN Barber b ON a.barber_id = b.barber_id " +
+                     "JOIN Service s ON a.service_id = s.service_id " +
+                     "ORDER BY a.date DESC, a.start_time DESC " +
+                     "LIMIT ? OFFSET ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, pageSize);
+            stmt.setInt(2, offset);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                appointments.add(extractAppointmentFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error finding paginated appointments: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return appointments;
+    }
+
+    /**
+     * Get total count of appointments
+     * @return Total number of appointments
+     */
+    public int getTotalCount() {
+        String sql = "SELECT COUNT(*) as total FROM Appointment";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error getting appointment count: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return 0;
     }
     
     /**

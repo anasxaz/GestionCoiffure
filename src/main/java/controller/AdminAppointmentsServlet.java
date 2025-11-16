@@ -36,14 +36,38 @@ public class AdminAppointmentsServlet extends HttpServlet {
         }
         
         String action = request.getParameter("action");
-        
+
         if ("cancel".equals(action)) {
             cancelAppointment(request, response);
             return;
         }
-        
-        List<Appointment> appointments = appointmentDAO.findAll();
+
+        // Get pagination parameters
+        int page = 1;
+        int pageSize = 10;
+
+        String pageParam = request.getParameter("page");
+        if (pageParam != null && !pageParam.isEmpty()) {
+            try {
+                page = Integer.parseInt(pageParam);
+                if (page < 1) page = 1;
+            } catch (NumberFormatException e) {
+                page = 1;
+            }
+        }
+
+        // Get paginated appointments
+        List<Appointment> appointments = appointmentDAO.findAll(page, pageSize);
+        int totalAppointments = appointmentDAO.getTotalCount();
+        int totalPages = (int) Math.ceil((double) totalAppointments / pageSize);
+
+        // Set attributes
         request.setAttribute("appointments", appointments);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalAppointments", totalAppointments);
+        request.setAttribute("pageSize", pageSize);
+
         request.getRequestDispatcher("/WEB-INF/views/admin/appointments.jsp").forward(request, response);
     }
     
