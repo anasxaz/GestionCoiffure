@@ -64,7 +64,7 @@
                     <div class="stat-card-content">
                         <div class="stat-card-label">Statut</div>
                         <div class="stat-card-value">
-                            ${client.loyaltyStatus == 'FIDELE' ? 'Fidèle' : 'Standard'}
+                            ${client.loyaltyStatus == 'fidele' ? 'Fidèle' : 'Standard'}
                         </div>
                     </div>
                 </div>
