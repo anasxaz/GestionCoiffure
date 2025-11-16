@@ -52,50 +52,58 @@
             <!-- Statistics Cards Row -->
             <div class="metrics-row">
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: var(--color-barber-light);">
-                        <i class="fas fa-calendar-check" style="color: var(--color-barber);"></i>
+                    <div class="stat-card-icon" style="background: var(--color-barber-light); color: var(--color-barber);">
+                        <i class="fas fa-calendar-check"></i>
                     </div>
-                    <div class="stat-details">
-                        <span class="stat-label" style="color: #000000 !important;">Aujourd'hui</span>
-                        <span class="stat-value" style="color: #000000 !important;">
-                            ${todayAppointments != null ? todayAppointments : 0}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: var(--color-success-light);">
-                        <i class="fas fa-check-circle" style="color: var(--color-success);"></i>
-                    </div>
-                    <div class="stat-details">
-                        <span class="stat-label" style="color: #000000 !important;">Confirmés</span>
-                        <span class="stat-value" style="color: #000000 !important;">
-                            ${confirmedAppointments != null ? confirmedAppointments : 0}
-                        </span>
+                    <div class="stat-card-content">
+                        <div class="stat-card-label">Aujourd'hui</div>
+                        <div class="stat-card-value">${todayAppointments != null ? todayAppointments : 0}</div>
+                        <div class="stat-card-change">
+                            <i class="fas fa-calendar-day" style="color: var(--color-barber);"></i>
+                            <span>Rendez-vous du jour</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: var(--color-warning-light);">
-                        <i class="fas fa-clock" style="color: var(--color-warning);"></i>
+                    <div class="stat-card-icon" style="background: var(--color-success-light); color: var(--color-success);">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                    <div class="stat-details">
-                        <span class="stat-label" style="color: #000000 !important;">En Attente</span>
-                        <span class="stat-value" style="color: #000000 !important;">
-                            ${pendingAppointments != null ? pendingAppointments : 0}
-                        </span>
+                    <div class="stat-card-content">
+                        <div class="stat-card-label">Confirmés</div>
+                        <div class="stat-card-value">${confirmedAppointments != null ? confirmedAppointments : 0}</div>
+                        <div class="stat-card-change">
+                            <i class="fas fa-check" style="color: var(--color-success);"></i>
+                            <span>Rendez-vous confirmés</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon" style="background: var(--color-info-light);">
-                        <i class="fas fa-users" style="color: var(--color-info);"></i>
+                    <div class="stat-card-icon" style="background: var(--color-warning-light); color: var(--color-warning);">
+                        <i class="fas fa-clock"></i>
                     </div>
-                    <div class="stat-details">
-                        <span class="stat-label" style="color: #000000 !important;">Clients Mois</span>
-                        <span class="stat-value" style="color: #000000 !important;">
-                            ${monthlyClients != null ? monthlyClients : 0}
-                        </span>
+                    <div class="stat-card-content">
+                        <div class="stat-card-label">En Attente</div>
+                        <div class="stat-card-value">${pendingAppointments != null ? pendingAppointments : 0}</div>
+                        <div class="stat-card-change">
+                            <i class="fas fa-hourglass-half" style="color: var(--color-warning);"></i>
+                            <span>À confirmer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-icon" style="background: var(--color-info-light); color: var(--color-info);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-card-content">
+                        <div class="stat-card-label">Clients ce Mois</div>
+                        <div class="stat-card-value">${monthlyClients != null ? monthlyClients : 0}</div>
+                        <div class="stat-card-change">
+                            <i class="fas fa-user-check" style="color: var(--color-info);"></i>
+                            <span>Clients uniques</span>
+                        </div>
                     </div>
                 </div>
             </div>

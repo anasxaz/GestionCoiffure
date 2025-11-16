@@ -69,21 +69,74 @@ public class ClientDAO {
     public List<Client> findAll() {
         List<Client> clients = new ArrayList<>();
         String sql = "SELECT * FROM Client ORDER BY name";
-        
+
         try (Connection conn = DatabaseUtil.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-            
+
             while (rs.next()) {
                 clients.add(extractClientFromResultSet(rs));
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Error finding all clients: " + e.getMessage());
             e.printStackTrace();
         }
-        
+
         return clients;
+    }
+
+    /**
+     * Get paginated list of clients
+     * @param page Page number (1-based)
+     * @param pageSize Number of records per page
+     * @return List of clients for the specified page
+     */
+    public List<Client> findAll(int page, int pageSize) {
+        List<Client> clients = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
+        String sql = "SELECT * FROM Client ORDER BY name LIMIT ? OFFSET ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, pageSize);
+            stmt.setInt(2, offset);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                clients.add(extractClientFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error finding paginated clients: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return clients;
+    }
+
+    /**
+     * Get total count of clients
+     * @return Total number of clients
+     */
+    public int getTotalCount() {
+        String sql = "SELECT COUNT(*) as total FROM Client";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error getting client count: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return 0;
     }
     
     /**

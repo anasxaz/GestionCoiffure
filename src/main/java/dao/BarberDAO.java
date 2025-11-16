@@ -92,21 +92,74 @@ public class BarberDAO {
     public List<Barber> findAllActive() {
         List<Barber> barbers = new ArrayList<>();
         String sql = "SELECT * FROM Barber WHERE status = 'active' ORDER BY name";
-        
+
         try (Connection conn = DatabaseUtil.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-            
+
             while (rs.next()) {
                 barbers.add(extractBarberFromResultSet(rs));
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Error finding active barbers: " + e.getMessage());
             e.printStackTrace();
         }
-        
+
         return barbers;
+    }
+
+    /**
+     * Get paginated list of barbers
+     * @param page Page number (1-based)
+     * @param pageSize Number of records per page
+     * @return List of barbers for the specified page
+     */
+    public List<Barber> findAll(int page, int pageSize) {
+        List<Barber> barbers = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
+        String sql = "SELECT * FROM Barber ORDER BY name LIMIT ? OFFSET ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, pageSize);
+            stmt.setInt(2, offset);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                barbers.add(extractBarberFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error finding paginated barbers: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return barbers;
+    }
+
+    /**
+     * Get total count of barbers
+     * @return Total number of barbers
+     */
+    public int getTotalCount() {
+        String sql = "SELECT COUNT(*) as total FROM Barber";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error getting barber count: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return 0;
     }
     
     /**

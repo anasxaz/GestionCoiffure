@@ -31,26 +31,49 @@ public class ViewClientsServlet extends HttpServlet {
     }
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession(false);
         if (session == null || !"admin".equals(session.getAttribute("userType"))) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        
-        List<Client> clients = clientDAO.findAll();
-        
+
+        // Get pagination parameters
+        int page = 1;
+        int pageSize = 10;
+
+        String pageParam = request.getParameter("page");
+        if (pageParam != null && !pageParam.isEmpty()) {
+            try {
+                page = Integer.parseInt(pageParam);
+                if (page < 1) page = 1;
+            } catch (NumberFormatException e) {
+                page = 1;
+            }
+        }
+
+        // Get paginated clients
+        List<Client> clients = clientDAO.findAll(page, pageSize);
+        int totalClients = clientDAO.getTotalCount();
+        int totalPages = (int) Math.ceil((double) totalClients / pageSize);
+
         // Get appointment count for each client
         Map<Integer, Integer> appointmentCounts = new HashMap<>();
         for (Client client : clients) {
             int count = clientDAO.getCompletedAppointmentCount(client.getClientId());
             appointmentCounts.put(client.getClientId(), count);
         }
-        
+
+        // Set attributes
         request.setAttribute("clients", clients);
         request.setAttribute("appointmentCounts", appointmentCounts);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalClients", totalClients);
+        request.setAttribute("pageSize", pageSize);
+
         request.getRequestDispatcher("/WEB-INF/views/admin/clients.jsp").forward(request, response);
     }
 }

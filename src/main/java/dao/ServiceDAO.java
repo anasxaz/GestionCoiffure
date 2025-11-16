@@ -68,21 +68,74 @@ public class ServiceDAO {
     public List<Service> findAllActive() {
         List<Service> services = new ArrayList<>();
         String sql = "SELECT * FROM Service WHERE is_active = TRUE ORDER BY name";
-        
+
         try (Connection conn = DatabaseUtil.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-            
+
             while (rs.next()) {
                 services.add(extractServiceFromResultSet(rs));
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Error finding active services: " + e.getMessage());
             e.printStackTrace();
         }
-        
+
         return services;
+    }
+
+    /**
+     * Get paginated list of services
+     * @param page Page number (1-based)
+     * @param pageSize Number of records per page
+     * @return List of services for the specified page
+     */
+    public List<Service> findAll(int page, int pageSize) {
+        List<Service> services = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
+        String sql = "SELECT * FROM Service ORDER BY name LIMIT ? OFFSET ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, pageSize);
+            stmt.setInt(2, offset);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                services.add(extractServiceFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error finding paginated services: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return services;
+    }
+
+    /**
+     * Get total count of services
+     * @return Total number of services
+     */
+    public int getTotalCount() {
+        String sql = "SELECT COUNT(*) as total FROM Service";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error getting service count: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return 0;
     }
     
     /**

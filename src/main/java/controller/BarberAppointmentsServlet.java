@@ -60,8 +60,25 @@ public class BarberAppointmentsServlet extends HttpServlet {
             completeAppointment(request, response, barberId);
             return;
         }
-        
-        List<Appointment> appointments = appointmentDAO.findByBarberId(barberId);
+
+        // Get pagination parameters
+        int page = 1;
+        int pageSize = 10;
+
+        String pageParam = request.getParameter("page");
+        if (pageParam != null && !pageParam.isEmpty()) {
+            try {
+                page = Integer.parseInt(pageParam);
+                if (page < 1) page = 1;
+            } catch (NumberFormatException e) {
+                page = 1;
+            }
+        }
+
+        // Get paginated appointments
+        List<Appointment> appointments = appointmentDAO.findByBarberId(barberId, page, pageSize);
+        int totalAppointments = appointmentDAO.getTotalCountByBarberId(barberId);
+        int totalPages = (int) Math.ceil((double) totalAppointments / pageSize);
 
         // Enrich appointments with service prices and offer data
         java.util.Map<Integer, Service> serviceMap = new java.util.HashMap<>();
@@ -92,6 +109,11 @@ public class BarberAppointmentsServlet extends HttpServlet {
         request.setAttribute("appointments", appointments);
         request.setAttribute("serviceMap", serviceMap);
         request.setAttribute("redemptionMap", redemptionMap);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalAppointments", totalAppointments);
+        request.setAttribute("pageSize", pageSize);
+
         request.getRequestDispatcher("/WEB-INF/views/barber/appointments.jsp").forward(request, response);
     }
     

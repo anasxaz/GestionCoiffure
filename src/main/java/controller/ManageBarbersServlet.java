@@ -96,10 +96,35 @@ public class ManageBarbersServlet extends HttpServlet {
         }
     }
     
-    private void listBarbers(HttpServletRequest request, HttpServletResponse response) 
+    private void listBarbers(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Barber> barbers = barberDAO.findAll();
+
+        // Get pagination parameters
+        int page = 1;
+        int pageSize = 10;
+
+        String pageParam = request.getParameter("page");
+        if (pageParam != null && !pageParam.isEmpty()) {
+            try {
+                page = Integer.parseInt(pageParam);
+                if (page < 1) page = 1;
+            } catch (NumberFormatException e) {
+                page = 1;
+            }
+        }
+
+        // Get paginated barbers
+        List<Barber> barbers = barberDAO.findAll(page, pageSize);
+        int totalBarbers = barberDAO.getTotalCount();
+        int totalPages = (int) Math.ceil((double) totalBarbers / pageSize);
+
+        // Set attributes
         request.setAttribute("barbers", barbers);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalBarbers", totalBarbers);
+        request.setAttribute("pageSize", pageSize);
+
         request.getRequestDispatcher("/WEB-INF/views/admin/barbers.jsp").forward(request, response);
     }
     

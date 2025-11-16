@@ -90,10 +90,35 @@ public class ManageServicesServlet extends HttpServlet {
         }
     }
     
-    private void listServices(HttpServletRequest request, HttpServletResponse response) 
+    private void listServices(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Service> services = serviceDAO.findAll();
+
+        // Get pagination parameters
+        int page = 1;
+        int pageSize = 10;
+
+        String pageParam = request.getParameter("page");
+        if (pageParam != null && !pageParam.isEmpty()) {
+            try {
+                page = Integer.parseInt(pageParam);
+                if (page < 1) page = 1;
+            } catch (NumberFormatException e) {
+                page = 1;
+            }
+        }
+
+        // Get paginated services
+        List<Service> services = serviceDAO.findAll(page, pageSize);
+        int totalServices = serviceDAO.getTotalCount();
+        int totalPages = (int) Math.ceil((double) totalServices / pageSize);
+
+        // Set attributes
         request.setAttribute("services", services);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalServices", totalServices);
+        request.setAttribute("pageSize", pageSize);
+
         request.getRequestDispatcher("/WEB-INF/views/admin/services.jsp").forward(request, response);
     }
     
