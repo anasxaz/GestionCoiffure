@@ -109,7 +109,24 @@
                                     </div>
                                     <div class="appointment-card-info-item">
                                         <i class="fas fa-money-bill-wave"></i>
-                                        <span>${apt.servicePrice} MAD</span>
+                                        <c:choose>
+                                            <c:when test="${apt.finalPrice != null}">
+                                                <span>
+                                                    <c:if test="${apt.finalPrice < apt.servicePrice}">
+                                                        <del style="color: var(--color-neutral-400); margin-right: 0.5rem;">${apt.servicePrice} MAD</del>
+                                                    </c:if>
+                                                    <strong style="color: var(--color-success);">${apt.finalPrice} MAD</strong>
+                                                    <c:if test="${apt.finalPrice < apt.servicePrice}">
+                                                        <span class="badge badge-success" style="margin-left: 0.5rem; font-size: 0.7rem;">
+                                                            <i class="fas fa-tag"></i> -10%
+                                                        </span>
+                                                    </c:if>
+                                                </span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span>${apt.servicePrice} MAD</span>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>

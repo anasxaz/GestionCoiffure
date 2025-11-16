@@ -164,11 +164,12 @@ public class ManageBarbersServlet extends HttpServlet {
         barber.setPhone(phone);
         barber.setBio(bio);
         barber.setStatus(status != null ? status : "active");
-        
+
         boolean success = barberDAO.create(barber);
-        
+
         if (success) {
-            response.sendRedirect(request.getContextPath() + "/admin/barbers?success=created");
+            // Redirect with barberId to show availability setup message
+            response.sendRedirect(request.getContextPath() + "/admin/barbers?success=created&barberId=" + barber.getBarberId());
         } else {
             request.setAttribute("error", "Erreur lors de la création du coiffeur");
             showAddForm(request, response);

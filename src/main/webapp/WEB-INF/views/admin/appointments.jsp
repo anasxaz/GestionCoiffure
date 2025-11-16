@@ -213,6 +213,17 @@
                                     </c:forEach>
                                 </tbody>
                         </table>
+
+                        <!-- Pagination -->
+                        <div id="pagination" style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 2rem; padding: 1rem;">
+                            <button id="prevBtn" onclick="changePage(-1)" class="btn btn-ghost btn-sm" disabled>
+                                <i class="fas fa-chevron-left"></i> Précédent
+                            </button>
+                            <span id="pageInfo" style="font-weight: 500; color: var(--color-neutral-700);"></span>
+                            <button id="nextBtn" onclick="changePage(1)" class="btn btn-ghost btn-sm">
+                                Suivant <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </c:otherwise>
             </c:choose>
@@ -222,6 +233,61 @@
     <!-- JavaScript -->
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
     <script>
+        // Pagination variables
+        let currentPage = 1;
+        const rowsPerPage = 10;
+        let allRows = [];
+
+        // Initialize pagination on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const table = document.getElementById('appointmentsTable');
+            if (table) {
+                const tbody = table.getElementsByTagName('tbody')[0];
+                allRows = Array.from(tbody.getElementsByTagName('tr'));
+                showPage(1);
+            }
+        });
+
+        // Show specific page
+        function showPage(page) {
+            currentPage = page;
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+
+            // Hide all rows first
+            allRows.forEach(row => row.style.display = 'none');
+
+            // Show only rows for current page
+            const visibleRows = allRows.filter(row => row.style.display !== 'none' || row.getAttribute('data-hidden') !== 'true');
+            for (let i = start; i < end && i < visibleRows.length; i++) {
+                visibleRows[i].style.display = '';
+            }
+
+            updatePaginationUI(visibleRows.length);
+        }
+
+        // Change page
+        function changePage(direction) {
+            const visibleRows = allRows.filter(row => row.getAttribute('data-hidden') !== 'true');
+            const totalPages = Math.ceil(visibleRows.length / rowsPerPage);
+
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                showPage(newPage);
+            }
+        }
+
+        // Update pagination UI
+        function updatePaginationUI(totalVisibleRows) {
+            const totalPages = Math.ceil(totalVisibleRows / rowsPerPage);
+
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
+            document.getElementById('pageInfo').textContent = totalPages > 0 ?
+                'Page ' + currentPage + ' sur ' + totalPages + ' (' + totalVisibleRows + ' rendez-vous)' :
+                'Aucun rendez-vous';
+        }
+
         // Search functionality
         function searchTable() {
             const input = document.getElementById('searchInput');
@@ -245,8 +311,14 @@
                     }
                 }
 
-                row.style.display = found ? '' : 'none';
+                if (found) {
+                    row.removeAttribute('data-hidden');
+                } else {
+                    row.setAttribute('data-hidden', 'true');
+                }
             }
+
+            showPage(1);
         }
 
         // Filter by status
@@ -261,11 +333,13 @@
                 const status = row.getAttribute('data-status');
 
                 if (filterValue === '' || status === filterValue) {
-                    row.style.display = '';
+                    row.removeAttribute('data-hidden');
                 } else {
-                    row.style.display = 'none';
+                    row.setAttribute('data-hidden', 'true');
                 }
             }
+
+            showPage(1);
         }
 
         // Auto-hide alerts after 5 seconds

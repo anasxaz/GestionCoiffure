@@ -102,7 +102,7 @@
             </div>
 
             <div class="table-container with-actions">
-                <table class="table">
+                <table class="table" id="servicesTable">
                     <thead>
                         <tr>
                             <th><i class="fas fa-hashtag"></i> ID</th>
@@ -180,6 +180,11 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <div id="noResultsMessage" style="display: none; padding: 2rem; text-align: center; color: var(--color-neutral-500);">
+                    <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p style="font-size: 1.1rem; font-weight: 500;">Aucun service trouvé</p>
+                    <p style="font-size: 0.9rem;">Essayez de modifier vos critères de recherche</p>
+                </div>
             </div>
 
             <!-- Empty State (if no services) -->
@@ -203,6 +208,27 @@
 
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
     <script>
+        function updateTableDisplay() {
+            const rows = document.querySelectorAll('tbody tr');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const table = document.getElementById('servicesTable');
+
+            let visibleCount = 0;
+            rows.forEach(row => {
+                if (row.style.display !== 'none') {
+                    visibleCount++;
+                }
+            });
+
+            if (visibleCount === 0) {
+                table.style.display = 'none';
+                noResultsMessage.style.display = 'block';
+            } else {
+                table.style.display = 'table';
+                noResultsMessage.style.display = 'none';
+            }
+        }
+
         // Simple search functionality
         document.getElementById('searchInput').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
@@ -212,6 +238,8 @@
                 const text = row.textContent.toLowerCase();
                 row.style.display = text.includes(searchTerm) ? '' : 'none';
             });
+
+            updateTableDisplay();
         });
 
         // Status filter functionality
@@ -227,6 +255,8 @@
                     row.style.display = status === filterValue ? '' : 'none';
                 }
             });
+
+            updateTableDisplay();
         });
     </script>
 </body>
