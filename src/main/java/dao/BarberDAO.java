@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +13,7 @@ import model.Barber;
 import util.DatabaseUtil;
 
 public class BarberDAO {
-    
-    /**
-     * Find barber by email
-     */
+
     public Barber findByEmail(String email) {
         String sql = "SELECT * FROM Barber WHERE email = ?";
         
@@ -38,10 +34,7 @@ public class BarberDAO {
         
         return null;
     }
-    
-    /**
-     * Find barber by ID
-     */
+
     public Barber findById(int barberId) {
         String sql = "SELECT * FROM Barber WHERE barber_id = ?";
         
@@ -62,10 +55,7 @@ public class BarberDAO {
         
         return null;
     }
-    
-    /**
-     * Get all barbers
-     */
+
     public List<Barber> findAll() {
         List<Barber> barbers = new ArrayList<>();
         String sql = "SELECT * FROM Barber ORDER BY name";
@@ -85,10 +75,7 @@ public class BarberDAO {
         
         return barbers;
     }
-    
-    /**
-     * Get all active barbers
-     */
+
     public List<Barber> findAllActive() {
         List<Barber> barbers = new ArrayList<>();
         String sql = "SELECT * FROM Barber WHERE status = 'active' ORDER BY name";
@@ -109,12 +96,6 @@ public class BarberDAO {
         return barbers;
     }
 
-    /**
-     * Get paginated list of barbers
-     * @param page Page number (1-based)
-     * @param pageSize Number of records per page
-     * @return List of barbers for the specified page
-     */
     public List<Barber> findAll(int page, int pageSize) {
         List<Barber> barbers = new ArrayList<>();
         int offset = (page - 1) * pageSize;
@@ -139,10 +120,6 @@ public class BarberDAO {
         return barbers;
     }
 
-    /**
-     * Get total count of barbers
-     * @return Total number of barbers
-     */
     public int getTotalCount() {
         String sql = "SELECT COUNT(*) as total FROM Barber";
 
@@ -161,10 +138,7 @@ public class BarberDAO {
 
         return 0;
     }
-    
-    /**
-     * Create new barber
-     */
+
     public boolean create(Barber barber) {
         String sql = "INSERT INTO Barber (name, email, password_hash, phone, bio, status) VALUES (?, ?, ?, ?, ?, ?)";
         
@@ -195,10 +169,7 @@ public class BarberDAO {
         
         return false;
     }
-    
-    /**
-     * Update barber
-     */
+
     public boolean update(Barber barber) {
         String sql = "UPDATE Barber SET name = ?, email = ?, phone = ?, bio = ?, status = ? WHERE barber_id = ?";
         
@@ -221,10 +192,7 @@ public class BarberDAO {
         
         return false;
     }
-    
-    /**
-     * Delete barber
-     */
+
     public boolean delete(int barberId) {
         String sql = "DELETE FROM Barber WHERE barber_id = ?";
         
@@ -241,10 +209,7 @@ public class BarberDAO {
         
         return false;
     }
-    
-    /**
-     * Update barber status
-     */
+
     public boolean updateStatus(int barberId, String status) {
         String sql = "UPDATE Barber SET status = ? WHERE barber_id = ?";
         
@@ -263,10 +228,7 @@ public class BarberDAO {
         
         return false;
     }
-    
-    /**
-     * Extract Barber object from ResultSet
-     */
+
     private Barber extractBarberFromResultSet(ResultSet rs) throws SQLException {
         Barber barber = new Barber();
         barber.setBarberId(rs.getInt("barber_id"));

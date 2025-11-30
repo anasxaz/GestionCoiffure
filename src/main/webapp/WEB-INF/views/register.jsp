@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="auth-page">
-        <!-- Illustration Side -->
+        
         <div class="auth-illustration-side">
             <div class="auth-illustration-content">
                 <h2>Rejoignez-Nous Aujourd'hui</h2>
@@ -20,22 +20,18 @@
                     Créez votre compte client pour réserver en ligne, accumuler des points de fidélité
                     et profiter d'offres exclusives.
                 </p>
-                <!-- Custom SVG Illustration -->
+                
                 <svg class="auth-illustration-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Registration illustration: People joining -->
-                    <!-- Person 1 -->
+
                     <circle cx="150" cy="100" r="30" fill="white"/>
                     <path d="M 150 130 Q 135 138, 135 155 L 135 175 Q 135 179, 139 179 L 161 179 Q 165 179, 165 175 L 165 155 Q 165 138, 150 130 Z" fill="white"/>
 
-                    <!-- Person 2 -->
                     <circle cx="250" cy="110" r="35" fill="rgba(255,255,255,0.9)"/>
                     <path d="M 250 145 Q 232 154, 232 173 L 232 195 Q 232 200, 237 200 L 263 200 Q 268 200, 268 195 L 268 173 Q 268 154, 250 145 Z" fill="rgba(255,255,255,0.9)"/>
 
-                    <!-- Person 3 -->
                     <circle cx="200" cy="140" r="32" fill="rgba(255,255,255,0.95)"/>
                     <path d="M 200 172 Q 183 180, 183 198 L 183 220 Q 183 225, 188 225 L 212 225 Q 217 225, 217 220 L 217 198 Q 217 180, 200 172 Z" fill="rgba(255,255,255,0.95)"/>
 
-                    <!-- Plus signs -->
                     <g fill="#10b981">
                         <rect x="108" y="88" width="4" height="16" rx="2"/>
                         <rect x="102" y="94" width="16" height="4" rx="2"/>
@@ -46,7 +42,6 @@
                         <rect x="282" y="104" width="16" height="4" rx="2"/>
                     </g>
 
-                    <!-- Decorative stars -->
                     <circle cx="120" cy="180" r="4" fill="rgba(245,158,11,0.6)"/>
                     <circle cx="280" cy="160" r="5" fill="rgba(245,158,11,0.5)"/>
                     <circle cx="170" cy="70" r="3" fill="rgba(16,185,129,0.5)"/>
@@ -55,7 +50,6 @@
             </div>
         </div>
 
-        <!-- Form Side -->
         <div class="auth-form-side">
             <div class="auth-form-container">
                 <div class="auth-header">
@@ -67,7 +61,6 @@
                     <p class="auth-subtitle">Commencez votre expérience avec nous</p>
                 </div>
 
-                <!-- Info Box -->
                 <div class="auth-info-box">
                     <i class="auth-info-box-icon fas fa-info-circle"></i>
                     <div class="auth-info-box-content">
@@ -75,7 +68,6 @@
                     </div>
                 </div>
 
-                <!-- Alerts -->
                 <c:if test="${not empty error}">
                     <div class="alert alert-error">
                         <i class="alert-icon fas fa-exclamation-circle"></i>
@@ -83,7 +75,6 @@
                     </div>
                 </c:if>
 
-                <!-- Registration Form -->
                 <form action="${pageContext.request.contextPath}/register" method="post" class="auth-form" id="registerForm">
                     <div class="form-group">
                         <label for="name" class="form-label form-label-required">Nom complet</label>
@@ -165,7 +156,7 @@
     </div>
 
     <script>
-        // Password visibility toggles
+         
         const togglePassword = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('password');
         const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
@@ -191,7 +182,6 @@
             });
         }
 
-        // Password strength indicator
         const strengthBar = document.getElementById('strengthBar');
         if (passwordInput && strengthBar) {
             passwordInput.addEventListener('input', function() {
@@ -215,7 +205,6 @@
             });
         }
 
-        // Password match validation
         const matchHint = document.getElementById('matchHint');
         const matchText = document.getElementById('matchText');
         if (confirmPasswordInput && matchHint && matchText) {
@@ -235,7 +224,6 @@
             });
         }
 
-        // Form validation
         const form = document.getElementById('registerForm');
         if (form) {
             form.addEventListener('submit', function(e) {

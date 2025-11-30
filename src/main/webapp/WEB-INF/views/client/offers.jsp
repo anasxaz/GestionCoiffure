@@ -32,7 +32,7 @@
     </nav>
 
     <main class="dashboard-main">
-        <!-- Page Header -->
+        
         <div class="page-header-row">
             <div class="page-header-info">
                 <h1 class="page-title">Offres de Fidélité</h1>
@@ -40,7 +40,6 @@
             </div>
         </div>
 
-        <!-- Points Balance Card -->
         <div class="stat-card" style="margin-bottom: var(--space-8); max-width: 400px;">
             <div class="stat-card-icon" style="background: var(--color-client-light);">
                 <i class="fas fa-coins" style="color: var(--color-client);"></i>
@@ -51,7 +50,6 @@
             </div>
         </div>
 
-        <!-- Success/Error Messages -->
         <c:if test="${param.success == 'redeemed'}">
             <div class="alert alert-success">
                 <i class="fas fa-check-circle"></i>
@@ -82,7 +80,6 @@
             </div>
         </c:if>
 
-        <!-- Redeemed Offers Section -->
         <c:if test="${not empty redeemedOffers}">
             <h2 class="section-title" style="margin-bottom: var(--space-4); font-size: var(--text-xl); font-weight: var(--font-weight-semibold);">
                 Mes Offres Disponibles
@@ -108,7 +105,6 @@
             </div>
         </c:if>
 
-        <!-- Available Offers Section -->
         <h2 class="section-title" style="margin-bottom: var(--space-4); font-size: var(--text-xl); font-weight: var(--font-weight-semibold);">
             Offres Disponibles
         </h2>

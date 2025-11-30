@@ -119,7 +119,6 @@
                     <input type="date" id="date" name="date" class="form-input" required onchange="updateAvailability()">
                 </div>
 
-                <!-- Availability Display -->
                 <div id="availabilityInfo" style="display: none; margin-bottom: var(--space-5);">
                     <div style="background: var(--color-info-light); border: 1px solid var(--color-info); border-radius: var(--radius-lg); padding: var(--space-4);">
                         <div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2);">
@@ -168,7 +167,6 @@
                     </div>
                 </c:if>
 
-                <!-- Price Summary -->
                 <div class="price-summary" id="priceSummary" style="display: none;">
                     <h3 style="margin: 0 0 var(--space-4) 0; font-size: var(--text-lg); font-weight: var(--font-weight-semibold);">
                         Récapitulatif du Prix
@@ -266,7 +264,6 @@
             }
         }
 
-        // Price calculation
         function updatePrice() {
             const serviceSelect = document.getElementById('serviceId');
             const redemptionSelect = document.getElementById('redemptionId');
@@ -277,7 +274,6 @@
             const discountAmountEl = document.getElementById('discountAmount');
             const finalPriceEl = document.getElementById('finalPrice');
 
-            // Get selected service price
             const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
             if (!selectedOption || !selectedOption.value) {
                 priceSummary.style.display = 'none';
@@ -288,7 +284,6 @@
             let finalPrice = basePrice;
             let discountPercent = 0;
 
-            // Check if offer is selected
             if (redemptionSelect) {
                 const selectedRedemption = redemptionSelect.options[redemptionSelect.selectedIndex];
                 if (selectedRedemption && selectedRedemption.value) {
@@ -296,11 +291,9 @@
                 }
             }
 
-            // Calculate discount and final price
             const discountAmount = (basePrice * discountPercent) / 100;
             finalPrice = basePrice - discountAmount;
 
-            // Update display
             basePriceEl.textContent = basePrice.toFixed(2) + ' MAD';
 
             if (discountPercent > 0) {
@@ -315,7 +308,6 @@
             priceSummary.style.display = 'block';
         }
 
-        // Auto-hide alerts after 5 seconds
         document.addEventListener('DOMContentLoaded', function() {
             const alerts = document.querySelectorAll('.alert');
             alerts.forEach(function(alert) {

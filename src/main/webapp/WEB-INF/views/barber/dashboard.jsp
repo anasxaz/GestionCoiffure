@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dashboard-page">
-    <!-- Modern Minimalist Navbar -->
+    
     <nav class="navbar role-barber">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -32,10 +32,9 @@
         </div>
     </nav>
 
-    <!-- Dashboard Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
-            <!-- Page Header -->
+            
             <div class="page-header-row">
                 <div class="page-header-info">
                     <h1 class="page-title">Bonjour, ${sessionScope.userName}!</h1>
@@ -49,7 +48,6 @@
                 </div>
             </div>
 
-            <!-- Statistics Cards Row -->
             <div class="metrics-row">
                 <div class="stat-card">
                     <div class="stat-card-icon" style="background: var(--color-barber-light); color: var(--color-barber);">
@@ -108,7 +106,6 @@
                 </div>
             </div>
 
-            <!-- Quick Actions Grid -->
             <div class="grid grid-auto-fill">
                 <a href="${pageContext.request.contextPath}/barber/appointments" class="card card-hover" style="text-decoration: none; color: inherit;">
                     <div class="card-header">

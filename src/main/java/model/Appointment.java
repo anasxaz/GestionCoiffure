@@ -1,6 +1,5 @@
 package model;
 
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -13,20 +12,18 @@ public class Appointment {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    private String status; // 'pending', 'confirmed', 'refused', 'cancelled', 'completed'
-    private Integer redemptionId; // Nullable - ID of the offer redemption used for discount
+    private String status;  
+    private Integer redemptionId;  
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String cancellationReason;
 
-    // For displaying related data
     private String clientName;
     private String barberName;
     private String serviceName;
     private Double servicePrice;
-    private Double finalPrice; // Actual price paid after discount
-    
-    // Constructors
+    private Double finalPrice;  
+
     public Appointment() {
     }
     
@@ -45,8 +42,7 @@ public class Appointment {
         this.updatedAt = updatedAt;
         this.cancellationReason = cancellationReason;
     }
-    
-    // Getters and Setters
+
     public int getAppointmentId() {
         return appointmentId;
     }

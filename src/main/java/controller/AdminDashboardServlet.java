@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +23,6 @@ public class AdminDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Check if user is logged in as admin
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("userType") == null ||
             !"admin".equals(session.getAttribute("userType"))) {
@@ -32,7 +30,6 @@ public class AdminDashboardServlet extends HttpServlet {
             return;
         }
 
-        // Load dashboard statistics
         int totalBarbers = 0;
         int todayAppointments = 0;
         int totalClients = 0;
@@ -43,24 +40,16 @@ public class AdminDashboardServlet extends HttpServlet {
             todayAppointments = getTodayAppointments();
             totalClients = getTotalClients();
             totalServices = getTotalServices();
-
-            System.out.println("Admin Dashboard Stats - Barbers: " + totalBarbers +
-                             ", Today: " + todayAppointments +
-                             ", Clients: " + totalClients +
-                             ", Services: " + totalServices);
-
         } catch (Exception e) {
             System.err.println("Error loading dashboard statistics: " + e.getMessage());
             e.printStackTrace();
         }
 
-        // Set attributes (will be 0 if there was an error)
         request.setAttribute("totalBarbers", totalBarbers);
         request.setAttribute("todayAppointments", todayAppointments);
         request.setAttribute("totalClients", totalClients);
         request.setAttribute("totalServices", totalServices);
 
-        // Forward to admin dashboard page
         request.getRequestDispatcher("/WEB-INF/views/admin/dashboard.jsp").forward(request, response);
     }
 

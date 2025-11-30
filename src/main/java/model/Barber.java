@@ -1,6 +1,5 @@
 package model;
 
-
 import java.time.LocalDateTime;
 
 public class Barber {
@@ -10,10 +9,9 @@ public class Barber {
     private String passwordHash;
     private String phone;
     private String bio;
-    private String status; // 'active' or 'inactive'
+    private String status;  
     private LocalDateTime createdAt;
-    
-    // Constructors
+
     public Barber() {
     }
     
@@ -28,8 +26,7 @@ public class Barber {
         this.status = status;
         this.createdAt = createdAt;
     }
-    
-    // Getters and Setters
+
     public int getBarberId() {
         return barberId;
     }

@@ -8,8 +8,7 @@ public class Admin {
     private String email;
     private String passwordHash;
     private LocalDateTime createdAt;
-    
-    // Constructors
+
     public Admin() {
     }
     
@@ -20,8 +19,7 @@ public class Admin {
         this.passwordHash = passwordHash;
         this.createdAt = createdAt;
     }
-    
-    // Getters and Setters
+
     public int getAdminId() {
         return adminId;
     }

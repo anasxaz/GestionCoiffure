@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -49,10 +48,8 @@ public class ClientOffersServlet extends HttpServlet {
             return;
         }
 
-        // Get all active offers
         List<Offer> offers = offerDAO.findAllActive();
 
-        // Get redeemed offers (unused ones that can be applied to appointments)
         List<OfferRedemption> redeemedOffers = offerDAO.findUnusedRedeemedOffersByClient(clientId);
 
         request.setAttribute("client", client);
@@ -72,18 +69,16 @@ public class ClientOffersServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/client/offers?error=offerNotAvailable");
                 return;
             }
-            
-            // Check if client has enough points
+
             if (client.getPointsBalance() < offer.getPointsRequired()) {
                 response.sendRedirect(request.getContextPath() + "/client/offers?error=notEnoughPoints");
                 return;
             }
-            
-            // Redeem offer
+
             boolean redeemed = offerDAO.redeemOffer(client.getClientId(), offerId);
             
             if (redeemed) {
-                // Deduct points
+                 
                 int newBalance = client.getPointsBalance() - offer.getPointsRequired();
                 clientDAO.updatePoints(client.getClientId(), newBalance);
                 

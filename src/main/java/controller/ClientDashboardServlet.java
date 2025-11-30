@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -35,10 +34,9 @@ public class ClientDashboardServlet extends HttpServlet {
         }
 
         try {
-            // Get client ID from session
+             
             Integer clientId = (Integer) session.getAttribute("userId");
 
-            // Get unused redeemed offers count
             List<OfferRedemption> unusedOffers = offerDAO.findUnusedRedeemedOffersByClient(clientId);
             int unusedOffersCount = unusedOffers != null ? unusedOffers.size() : 0;
 

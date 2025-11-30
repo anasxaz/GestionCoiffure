@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -50,36 +49,28 @@ public class AdminStatisticsServlet extends HttpServlet {
         }
         
         try {
-            // Overall counts
+             
             int totalBarbers = barberDAO.findAll().size();
             int activeBarbers = barberDAO.findAllActive().size();
             int totalClients = clientDAO.findAll().size();
             int totalServices = serviceDAO.findAll().size();
             int totalAppointments = appointmentDAO.findAll().size();
-            
-            // Appointment statistics by status
+
             Map<String, Integer> appointmentsByStatus = getAppointmentsByStatus();
-            
-            // Revenue statistics
+
             double totalRevenue = getTotalRevenue();
             double monthlyRevenue = getMonthlyRevenue();
-            
-            // Top services
+
             List<Map<String, Object>> topServices = getTopServices();
-            
-            // Top barbers by appointments
+
             List<Map<String, Object>> topBarbers = getTopBarbers();
-            
-            // Monthly trends (last 6 months)
+
             List<Map<String, Object>> monthlyTrends = getMonthlyTrends();
-            
-            // Client loyalty statistics
+
             Map<String, Integer> loyaltyStats = getLoyaltyStatistics();
-            
-            // Recent appointments
+
             List<Map<String, Object>> recentAppointments = getRecentAppointments();
-            
-            // Set all attributes
+
             request.setAttribute("totalBarbers", totalBarbers);
             request.setAttribute("activeBarbers", activeBarbers);
             request.setAttribute("totalClients", totalClients);

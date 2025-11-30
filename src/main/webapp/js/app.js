@@ -1,9 +1,5 @@
-/**
- * GestionCoiffure - Application JavaScript Utilities
- * Shared functions and utilities for the entire application
- */
+ 
 
-// Password visibility toggle utility
 function initPasswordToggles() {
     document.querySelectorAll('[data-password-toggle]').forEach(button => {
         button.addEventListener('click', function() {
@@ -23,7 +19,6 @@ function initPasswordToggles() {
     });
 }
 
-// Form validation utility
 function validateForm(formId, rules) {
     const form = document.getElementById(formId);
     if (!form) return;
@@ -32,7 +27,6 @@ function validateForm(formId, rules) {
         let isValid = true;
         const errors = [];
 
-        // Run custom validation rules
         if (rules) {
             for (const [field, validator] of Object.entries(rules)) {
                 const input = form.querySelector(`[name="${field}"]`);
@@ -50,7 +44,6 @@ function validateForm(formId, rules) {
     });
 }
 
-// Toast notification system
 const Toast = {
     show: function(message, type = 'info', duration = 3000) {
         const toast = document.createElement('div');
@@ -62,10 +55,8 @@ const Toast = {
 
         document.body.appendChild(toast);
 
-        // Trigger animation
         setTimeout(() => toast.classList.add('show'), 10);
 
-        // Auto remove
         setTimeout(() => {
             toast.classList.remove('show');
             setTimeout(() => toast.remove(), 300);
@@ -83,14 +74,12 @@ const Toast = {
     }
 };
 
-// Confirmation dialog utility
 function confirmAction(message, callback) {
     if (confirm(message)) {
         callback();
     }
 }
 
-// Debounce utility for search inputs
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -103,23 +92,19 @@ function debounce(func, wait) {
     };
 }
 
-// Format date utility
 function formatDate(dateString) {
     const date = new Date(dateString);
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('fr-FR', options);
 }
 
-// Format time utility
 function formatTime(timeString) {
-    return timeString.substring(0, 5); // HH:MM format
+    return timeString.substring(0, 5);  
 }
 
-// Initialize all utilities when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     initPasswordToggles();
 
-    // Auto-hide alerts after 5 seconds
     document.querySelectorAll('.alert').forEach(alert => {
         setTimeout(() => {
             alert.style.opacity = '0';
@@ -128,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
 
-    // Add confirmation to delete buttons
     document.querySelectorAll('[data-confirm]').forEach(element => {
         element.addEventListener('click', function(e) {
             const message = this.getAttribute('data-confirm');
@@ -139,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Set minimum date for date inputs to today
     document.querySelectorAll('input[type="date"]').forEach(input => {
         if (!input.hasAttribute('min')) {
             input.setAttribute('min', new Date().toISOString().split('T')[0]);
@@ -147,7 +130,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Export utilities for use in other scripts
 window.GestionCoiffure = {
     Toast,
     confirmAction,

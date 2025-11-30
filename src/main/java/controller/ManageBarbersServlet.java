@@ -27,8 +27,7 @@ public class ManageBarbersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        
-        // Check if user is logged in as admin
+
         HttpSession session = request.getSession(false);
         if (session == null || !"admin".equals(session.getAttribute("userType"))) {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -72,8 +71,7 @@ public class ManageBarbersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        
-        // Check if user is logged in as admin
+
         HttpSession session = request.getSession(false);
         if (session == null || !"admin".equals(session.getAttribute("userType"))) {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -99,7 +97,6 @@ public class ManageBarbersServlet extends HttpServlet {
     private void listBarbers(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get pagination parameters
         int page = 1;
         int pageSize = 10;
 
@@ -113,12 +110,10 @@ public class ManageBarbersServlet extends HttpServlet {
             }
         }
 
-        // Get paginated barbers
         List<Barber> barbers = barberDAO.findAll(page, pageSize);
         int totalBarbers = barberDAO.getTotalCount();
         int totalPages = (int) Math.ceil((double) totalBarbers / pageSize);
 
-        // Set attributes
         request.setAttribute("barbers", barbers);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
@@ -156,8 +151,7 @@ public class ManageBarbersServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String bio = request.getParameter("bio");
         String status = request.getParameter("status");
-        
-        // Validate input
+
         if (name == null || name.trim().isEmpty() ||
             email == null || email.trim().isEmpty() ||
             password == null || password.trim().isEmpty()) {
@@ -166,22 +160,19 @@ public class ManageBarbersServlet extends HttpServlet {
             showAddForm(request, response);
             return;
         }
-        
-        // Check if email already exists
+
         if (barberDAO.findByEmail(email) != null) {
             request.setAttribute("error", "Cet email est déjà utilisé");
             showAddForm(request, response);
             return;
         }
-        
-        // Validate password
+
         if (!PasswordUtil.isValidPassword(password)) {
             request.setAttribute("error", "Le mot de passe doit contenir au moins 6 caractères");
             showAddForm(request, response);
             return;
         }
-        
-        // Create barber
+
         Barber barber = new Barber();
         barber.setName(name);
         barber.setEmail(email);
@@ -193,7 +184,7 @@ public class ManageBarbersServlet extends HttpServlet {
         boolean success = barberDAO.create(barber);
 
         if (success) {
-            // Redirect with barberId to show availability setup message
+             
             response.sendRedirect(request.getContextPath() + "/admin/barbers?success=created&barberId=" + barber.getBarberId());
         } else {
             request.setAttribute("error", "Erreur lors de la création du coiffeur");
@@ -218,8 +209,7 @@ public class ManageBarbersServlet extends HttpServlet {
             listBarbers(request, response);
             return;
         }
-        
-        // Check if email is being changed and if new email exists
+
         if (!email.equals(barber.getEmail())) {
             Barber existingBarber = barberDAO.findByEmail(email);
             if (existingBarber != null && existingBarber.getBarberId() != barberId) {

@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -19,8 +18,6 @@ import model.Appointment;
 import model.Client;
 import model.OfferRedemption;
 import service.Service;
-
-
 
 @WebServlet("/barber/appointments")
 public class BarberAppointmentsServlet extends HttpServlet {
@@ -61,7 +58,6 @@ public class BarberAppointmentsServlet extends HttpServlet {
             return;
         }
 
-        // Get pagination parameters
         int page = 1;
         int pageSize = 10;
 
@@ -75,17 +71,15 @@ public class BarberAppointmentsServlet extends HttpServlet {
             }
         }
 
-        // Get paginated appointments
         List<Appointment> appointments = appointmentDAO.findByBarberId(barberId, page, pageSize);
         int totalAppointments = appointmentDAO.getTotalCountByBarberId(barberId);
         int totalPages = (int) Math.ceil((double) totalAppointments / pageSize);
 
-        // Enrich appointments with service prices and offer data
         java.util.Map<Integer, Service> serviceMap = new java.util.HashMap<>();
         java.util.Map<Integer, OfferRedemption> redemptionMap = new java.util.HashMap<>();
 
         for (Appointment apt : appointments) {
-            // Load service if not already loaded
+             
             if (!serviceMap.containsKey(apt.getServiceId())) {
                 Service svc = serviceDAO.findById(apt.getServiceId());
                 if (svc != null) {
@@ -93,9 +87,8 @@ public class BarberAppointmentsServlet extends HttpServlet {
                 }
             }
 
-            // Load offer redemption if appointment has one
             if (apt.getRedemptionId() != null && !redemptionMap.containsKey(apt.getRedemptionId())) {
-                // Get redemption details
+                 
                 List<OfferRedemption> redemptions = offerDAO.findRedeemedOffersByClient(apt.getClientId());
                 for (OfferRedemption r : redemptions) {
                     if (r.getRedemptionId() == apt.getRedemptionId()) {
@@ -167,10 +160,9 @@ public class BarberAppointmentsServlet extends HttpServlet {
             Appointment appointment = appointmentDAO.findById(appointmentId);
             
             if (appointment != null && appointment.getBarberId() == barberId) {
-                // Update appointment status to completed
+                 
                 appointmentDAO.updateStatus(appointmentId, "completed");
-                
-                // AUTO-ASSIGN POINTS: Award 10 points per completed appointment
+
                 int clientId = appointment.getClientId();
                 ClientDAO clientDAO = new ClientDAO();
                 Client client = clientDAO.findById(clientId);
@@ -179,8 +171,7 @@ public class BarberAppointmentsServlet extends HttpServlet {
                     int pointsToAdd = 10;
                     int newBalance = client.getPointsBalance() + pointsToAdd;
                     clientDAO.updatePoints(clientId, newBalance);
-                    
-                    // Check if client should be upgraded to "fidele" status
+
                     int completedCount = clientDAO.getCompletedAppointmentCount(clientId);
                     if (completedCount >= 3 && !"fidele".equals(client.getLoyaltyStatus())) {
                         clientDAO.updateLoyaltyStatus(clientId, "fidele");

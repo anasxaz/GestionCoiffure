@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -25,7 +24,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        // Forward to registration page
+         
         request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
     }
     
@@ -38,8 +37,7 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
         String phone = request.getParameter("phone");
-        
-        // Validate input
+
         if (name == null || name.trim().isEmpty() ||
             email == null || email.trim().isEmpty() ||
             password == null || password.trim().isEmpty() ||
@@ -52,8 +50,7 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
             return;
         }
-        
-        // Validate email format
+
         if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             request.setAttribute("error", "Format d'email invalide");
             request.setAttribute("name", name);
@@ -62,8 +59,7 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
             return;
         }
-        
-        // Validate password
+
         if (!PasswordUtil.isValidPassword(password)) {
             request.setAttribute("error", "Le mot de passe doit contenir au moins 6 caractères");
             request.setAttribute("name", name);
@@ -72,8 +68,7 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
             return;
         }
-        
-        // Check if passwords match
+
         if (!password.equals(confirmPassword)) {
             request.setAttribute("error", "Les mots de passe ne correspondent pas");
             request.setAttribute("name", name);
@@ -82,8 +77,7 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
             return;
         }
-        
-        // Check if email already exists
+
         if (authService.emailExists(email)) {
             request.setAttribute("error", "Cet email est déjà utilisé");
             request.setAttribute("name", name);
@@ -94,11 +88,11 @@ public class RegisterServlet extends HttpServlet {
         }
         
         try {
-            // Register client
+             
             boolean success = authService.registerClient(name, email, password, phone);
             
             if (success) {
-                // Redirect to login page with success message
+                 
                 response.sendRedirect(request.getContextPath() + "/login?registration=success");
             } else {
                 request.setAttribute("error", "Erreur lors de l'inscription. Veuillez réessayer.");

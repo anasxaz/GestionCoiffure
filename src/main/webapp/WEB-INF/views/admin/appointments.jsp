@@ -7,16 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tous les Rendez-vous - Barbershop Admin</title>
 
-    <!-- Design System CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/design-system.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
 
-    <!-- Font Awesome 6.4.0 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dashboard-page">
-    <!-- Admin Navbar -->
+    
     <nav class="navbar role-admin">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -37,10 +35,8 @@
         </div>
     </nav>
 
-    <!-- Dashboard Main -->
     <main class="dashboard-main">
 
-            <!-- Success/Error Messages -->
             <c:if test="${param.success == 'cancelled'}">
                 <div class="alert alert-success">
                     <i class="fas fa-check-circle"></i>
@@ -61,29 +57,12 @@
                 </div>
             </c:if>
 
-            <!-- Page Header -->
             <div class="page-header-row">
                 <div class="page-header-info">
                     <h1 class="page-title">Tous les Rendez-vous</h1>
                     <p class="page-subtitle">Gérez tous les rendez-vous du salon</p>
                 </div>
             </div>
-
-            <!-- Statistics Row -->
-            <c:set var="pendingCount" value="0"/>
-            <c:set var="confirmedCount" value="0"/>
-            <c:set var="completedCount" value="0"/>
-            <c:forEach var="apt" items="${appointments}">
-                <c:if test="${apt.status == 'pending'}">
-                    <c:set var="pendingCount" value="${pendingCount + 1}"/>
-                </c:if>
-                <c:if test="${apt.status == 'confirmed'}">
-                    <c:set var="confirmedCount" value="${confirmedCount + 1}"/>
-                </c:if>
-                <c:if test="${apt.status == 'completed'}">
-                    <c:set var="completedCount" value="${completedCount + 1}"/>
-                </c:if>
-            </c:forEach>
 
             <div class="metrics-row">
                 <div class="stat-card">
@@ -92,7 +71,7 @@
                     </div>
                     <div class="stat-card-content">
                         <div class="stat-card-label">Total</div>
-                        <div class="stat-card-value">${appointments.size()}</div>
+                        <div class="stat-card-value">${totalAppointments}</div>
                     </div>
                 </div>
 
@@ -127,7 +106,6 @@
                 </div>
             </div>
 
-            <!-- Appointments Table -->
             <div class="table-actions-bar">
                 <h2 class="table-title">Liste des rendez-vous</h2>
                 <div class="table-actions-right">
@@ -213,9 +191,20 @@
                                     </c:forEach>
                                 </tbody>
                         </table>
+
+                        <div id="noResultsMessage" style="display: none;">
+                            <div class="empty-state" style="padding: var(--space-12) var(--space-6);">
+                                <div class="empty-state-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <div class="empty-state-title">Aucun résultat trouvé</div>
+                                <div class="empty-state-description">
+                                    Aucun rendez-vous ne correspond à vos critères de recherche.
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Pagination -->
                     <c:set var="baseUrl" value="${pageContext.request.contextPath}/admin/appointments" />
                     <c:set var="itemName" value="rendez-vous" />
                     <jsp:include page="../components/pagination.jsp">
@@ -230,7 +219,6 @@
 
     </main>
 
-    <!-- JavaScript -->
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
     <script>
         // Auto-hide alerts after 5 seconds
@@ -245,6 +233,78 @@
                 }, 5000);
             });
         });
+
+        // Function to check and toggle no results message
+        function toggleNoResultsMessage() {
+            const tableBody = document.querySelector('#appointmentsTable tbody');
+            if (!tableBody) return;
+
+            const rows = tableBody.querySelectorAll('tr');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const tableElement = document.querySelector('#appointmentsTable');
+
+            // Check if any row is visible
+            let hasVisibleRows = false;
+            rows.forEach(row => {
+                if (row.style.display !== 'none') {
+                    hasVisibleRows = true;
+                }
+            });
+
+            // Show/hide the no results message
+            if (!hasVisibleRows && rows.length > 0) {
+                if (noResultsMessage) {
+                    noResultsMessage.style.display = 'block';
+                }
+                if (tableElement) {
+                    tableElement.style.display = 'none';
+                }
+            } else {
+                if (noResultsMessage) {
+                    noResultsMessage.style.display = 'none';
+                }
+                if (tableElement) {
+                    tableElement.style.display = 'table';
+                }
+            }
+        }
+
+        // Combined search and filter function
+        function applyFilters() {
+            const searchInput = document.getElementById('searchInput');
+            const statusFilter = document.getElementById('statusFilter');
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+            const statusValue = statusFilter ? statusFilter.value : '';
+            const tableBody = document.querySelector('#appointmentsTable tbody');
+
+            if (!tableBody) return;
+
+            const rows = tableBody.querySelectorAll('tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                const status = row.dataset.status;
+
+                const matchesSearch = searchTerm === '' || text.includes(searchTerm);
+                const matchesStatus = statusValue === '' || status === statusValue;
+
+                if (matchesSearch && matchesStatus) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            toggleNoResultsMessage();
+        }
+
+        function searchTable() {
+            applyFilters();
+        }
+
+        function filterByStatus() {
+            applyFilters();
+        }
     </script>
 </body>
 </html>

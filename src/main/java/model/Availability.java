@@ -1,19 +1,16 @@
 package model;
 
-
 import java.time.LocalTime;
 
 public class Availability {
     private int availabilityId;
     private int barberId;
-    private String dayOfWeek; // 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+    private String dayOfWeek;  
     private LocalTime startTime;
     private LocalTime endTime;
-    
-    // For display purposes
+
     private String barberName;
-    
-    // Constructors
+
     public Availability() {
     }
     
@@ -25,8 +22,7 @@ public class Availability {
         this.startTime = startTime;
         this.endTime = endTime;
     }
-    
-    // Getters and Setters
+
     public int getAvailabilityId() {
         return availabilityId;
     }

@@ -97,7 +97,6 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
                 <c:set var="baseUrl" value="${pageContext.request.contextPath}/barber/clients" />
                 <c:set var="itemName" value="client(s)" />
                 <jsp:include page="../components/pagination.jsp">

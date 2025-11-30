@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dashboard-page">
-    <!-- Navigation Bar -->
+    
     <nav class="navbar role-admin">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -33,10 +33,9 @@
         </div>
     </nav>
 
-    <!-- Main Dashboard Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
-            <!-- Page Header -->
+            
             <div class="page-header-row">
                 <div class="page-header-content">
                     <h1 class="page-title">Tableau de bord</h1>
@@ -50,7 +49,6 @@
                 </div>
             </div>
 
-            <!-- Quick Stats Section -->
             <div class="metrics-row">
                 <div class="stat-card">
                     <div class="stat-card-icon" style="background: var(--color-admin-light);">
@@ -93,7 +91,6 @@
                 </div>
             </div>
 
-            <!-- Management Grid -->
             <div class="grid grid-auto-fill">
                 <a href="${pageContext.request.contextPath}/admin/barbers" class="card card-hover" style="text-decoration: none; color: inherit;">
                     <div class="card-header">

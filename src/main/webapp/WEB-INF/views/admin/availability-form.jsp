@@ -7,16 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter Disponibilité - Barbershop</title>
 
-    <!-- Design System CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/design-system.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dashboard-page">
-    <!-- Navigation Bar -->
+    
     <nav class="navbar role-admin">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -48,10 +46,9 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="dashboard-main">
         <div class="container container-narrow">
-            <!-- Page Header -->
+            
             <div class="page-header">
                 <h1 class="page-title">
                     <i class="fas fa-calendar-plus" style="color: var(--color-admin);"></i>
@@ -60,7 +57,6 @@
                 <p class="page-subtitle">Définissez les horaires de travail d'un coiffeur pour un jour spécifique</p>
             </div>
 
-            <!-- Info Alert -->
             <div class="alert alert-info">
                 <i class="fas fa-info-circle alert-icon"></i>
                 <div class="alert-content">
@@ -69,7 +65,6 @@
                 </div>
             </div>
 
-            <!-- Error Alert -->
             <c:if test="${not empty error}">
                 <div class="alert alert-error">
                     <i class="fas fa-exclamation-circle alert-icon"></i>
@@ -80,7 +75,6 @@
                 </div>
             </c:if>
 
-            <!-- Availability Form -->
             <form action="${pageContext.request.contextPath}/admin/availability" method="post">
                 <div class="form-section">
                     <div class="form-section-header">
@@ -90,7 +84,6 @@
                         </h2>
                     </div>
 
-                    <!-- Barber Selection -->
                     <div class="form-group">
                         <label for="barberId" class="form-label form-label-required">
                             <i class="fas fa-user-tie" style="color: var(--color-admin);"></i>
@@ -108,7 +101,6 @@
                         </span>
                     </div>
 
-                    <!-- Day of Week Selection -->
                     <div class="form-group">
                         <label for="dayOfWeek" class="form-label form-label-required">
                             <i class="fas fa-calendar-day" style="color: var(--color-primary);"></i>
@@ -133,7 +125,6 @@
                         </span>
                     </div>
 
-                    <!-- Time Inputs -->
                     <div class="form-two-column">
                         <div class="form-group">
                             <label for="startTime" class="form-label form-label-required">
@@ -172,7 +163,6 @@
                         </div>
                     </div>
 
-                    <!-- Time Preview Info -->
                     <div class="service-info-display">
                         <div class="service-info-item">
                             <span class="service-info-label">
@@ -192,7 +182,6 @@
                         </div>
                     </div>
 
-                    <!-- Form Buttons -->
                     <div class="form-buttons">
                         <a href="${pageContext.request.contextPath}/admin/availability" class="btn btn-secondary">
                             <i class="fas fa-times"></i>
@@ -206,7 +195,6 @@
                 </div>
             </form>
 
-            <!-- Help Card -->
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
@@ -238,10 +226,8 @@
         </div>
     </main>
 
-    <!-- JavaScript -->
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
 
-    <!-- Custom Form Script -->
     <script>
         // Calculate work duration when time inputs change
         const startTimeInput = document.getElementById('startTime');

@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="dashboard-page">
-        <!-- Navigation Bar -->
+        
         <nav class="navbar role-admin">
             <div class="navbar-container">
                 <div class="navbar-brand">
@@ -39,9 +39,8 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <main class="dashboard-main">
-            <!-- Page Header -->
+            
             <div class="page-header-row">
                 <div class="page-header-info">
                     <h1 class="page-title">Gestion des Offres</h1>
@@ -55,7 +54,6 @@
                 </div>
             </div>
 
-            <!-- Success Messages -->
             <c:if test="${param.success == 'created'}">
                 <div class="alert alert-success">
                     <i class="fas fa-check-circle alert-icon"></i>
@@ -84,10 +82,9 @@
                 </div>
             </c:if>
 
-            <!-- Offers Display -->
             <c:choose>
                 <c:when test="${empty offers}">
-                    <!-- Empty State -->
+                    
                     <div class="empty-state">
                         <div class="empty-state-icon">
                             <i class="fas fa-gift"></i>
@@ -103,7 +100,7 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <!-- Offers Grid -->
+                    
                     <div class="grid grid-auto-fill">
                         <c:forEach var="offer" items="${offers}">
                             <div class="offer-card">
@@ -176,74 +173,6 @@
                         </c:forEach>
                     </div>
 
-                    <!-- Alternative: Table View -->
-                    <!-- Uncomment this section if you prefer a table layout -->
-                    <!--
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Titre</th>
-                                    <th>Description</th>
-                                    <th>Points Requis</th>
-                                    <th>Statut</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="offer" items="${offers}">
-                                    <tr>
-                                        <td>${offer.offerId}</td>
-                                        <td><strong>${offer.title}</strong></td>
-                                        <td>${offer.description}</td>
-                                        <td>
-                                            <span style="display: flex; align-items: center; gap: var(--space-1);">
-                                                <i class="fas fa-coins" style="color: var(--color-warning);"></i>
-                                                ${offer.pointsRequired} points
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${offer.active}">
-                                                    <span class="badge badge-success">
-                                                        <span class="status-dot status-dot-success"></span>
-                                                        Actif
-                                                    </span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span class="badge badge-neutral">
-                                                        <span class="status-dot status-dot-neutral"></span>
-                                                        Inactif
-                                                    </span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </td>
-                                        <td>
-                                            <div class="table-actions-group">
-                                                <a href="${pageContext.request.contextPath}/admin/offers?action=edit&id=${offer.offerId}"
-                                                   class="btn btn-secondary btn-sm">
-                                                    <i class="fas fa-edit"></i>
-                                                    Modifier
-                                                </a>
-                                                <a href="${pageContext.request.contextPath}/admin/offers?action=toggle&id=${offer.offerId}"
-                                                   class="btn ${offer.active ? 'btn-warning' : 'btn-success'} btn-sm">
-                                                    <i class="fas fa-toggle-${offer.active ? 'off' : 'on'}"></i>
-                                                    ${offer.active ? 'Désactiver' : 'Activer'}
-                                                </a>
-                                                <a href="${pageContext.request.contextPath}/admin/offers?action=delete&id=${offer.offerId}"
-                                                   class="btn btn-error btn-sm btn-icon"
-                                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette offre ?')">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                    -->
                 </c:otherwise>
             </c:choose>
         </main>

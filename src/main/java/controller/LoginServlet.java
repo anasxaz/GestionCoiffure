@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -28,7 +27,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        // Forward to login page
+         
         request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
     }
     
@@ -38,9 +37,8 @@ public class LoginServlet extends HttpServlet {
         
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String userType = request.getParameter("userType"); // admin, barber, or client
-        
-        // Validate input
+        String userType = request.getParameter("userType");  
+
         if (email == null || email.trim().isEmpty() || 
             password == null || password.trim().isEmpty() ||
             userType == null || userType.trim().isEmpty()) {
@@ -94,8 +92,7 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
                     return;
             }
-            
-            // If we reach here, authentication failed
+
             request.setAttribute("error", "Email ou mot de passe incorrect");
             request.setAttribute("email", email);
             request.setAttribute("userType", userType);

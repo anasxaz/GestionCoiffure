@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="dashboard-page">
-        <!-- Navigation Bar -->
+        
         <nav class="navbar role-admin">
             <div class="navbar-container">
                 <div class="navbar-brand">
@@ -39,9 +39,8 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <main class="dashboard-main">
-            <!-- Page Header -->
+            
             <div class="page-header-row">
                 <div class="page-header-info">
                     <h1 class="page-title">Catalogue de Services</h1>
@@ -55,7 +54,6 @@
                 </div>
             </div>
 
-            <!-- Success Messages -->
             <c:if test="${param.success == 'created'}">
                 <div class="alert alert-success">
                     <i class="fas fa-check-circle alert-icon"></i>
@@ -84,7 +82,6 @@
                 </div>
             </c:if>
 
-            <!-- Services Table -->
             <div class="table-actions-bar">
                 <div class="table-actions-left">
                     <div class="search-input">
@@ -187,7 +184,6 @@
                 </div>
             </div>
 
-            <!-- Pagination -->
             <c:set var="baseUrl" value="${pageContext.request.contextPath}/admin/services" />
             <c:set var="itemName" value="service(s)" />
             <jsp:include page="../components/pagination.jsp">
@@ -198,7 +194,6 @@
                 <jsp:param name="itemName" value="${itemName}" />
             </jsp:include>
 
-            <!-- Empty State (if no services) -->
             <c:if test="${empty services && totalServices == 0}">
                 <div class="empty-state">
                     <div class="empty-state-icon">
@@ -240,7 +235,6 @@
             }
         }
 
-        // Simple search functionality
         document.getElementById('searchInput').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const rows = document.querySelectorAll('tbody tr');
@@ -253,7 +247,6 @@
             updateTableDisplay();
         });
 
-        // Status filter functionality
         document.getElementById('statusFilter').addEventListener('change', function(e) {
             const filterValue = e.target.value;
             const rows = document.querySelectorAll('tbody tr');

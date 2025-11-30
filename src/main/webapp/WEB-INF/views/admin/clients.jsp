@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clients - GestionCoiffure</title>
 
-    <!-- CSS Files -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/design-system.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
@@ -15,7 +14,7 @@
 </head>
 <body>
     <div class="dashboard-page">
-        <!-- Navigation Bar -->
+        
         <nav class="navbar role-admin">
             <div class="navbar-container">
                 <div class="navbar-brand">
@@ -48,9 +47,8 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <main class="dashboard-main">
-            <!-- Page Header -->
+            
             <div class="page-header-row">
                 <div class="page-header-info">
                     <h1 class="page-title">Base de données clients</h1>
@@ -58,7 +56,6 @@
                 </div>
             </div>
 
-            <!-- Metrics Row -->
             <div class="metrics-row">
                 <div class="stat-card">
                     <div class="stat-card-icon" style="background: var(--color-primary-50); color: var(--color-primary);">
@@ -66,7 +63,7 @@
                     </div>
                     <div class="stat-card-content">
                         <div class="stat-card-label">Total Clients</div>
-                        <div class="stat-card-value">${clients.size()}</div>
+                        <div class="stat-card-value">${totalClients}</div>
                         <div class="stat-card-change">
                             <i class="fas fa-user-plus"></i>
                             <span>Clients enregistrés</span>
@@ -80,15 +77,7 @@
                     </div>
                     <div class="stat-card-content">
                         <div class="stat-card-label">Clients Fidèles</div>
-                        <div class="stat-card-value">
-                            <c:set var="fideleCount" value="0"/>
-                            <c:forEach var="client" items="${clients}">
-                                <c:if test="${client.loyaltyStatus == 'fidele'}">
-                                    <c:set var="fideleCount" value="${fideleCount + 1}"/>
-                                </c:if>
-                            </c:forEach>
-                            ${fideleCount}
-                        </div>
+                        <div class="stat-card-value">${loyalClientCount}</div>
                         <div class="stat-card-change">
                             <i class="fas fa-star"></i>
                             <span>Statut fidélité</span>
@@ -102,13 +91,7 @@
                     </div>
                     <div class="stat-card-content">
                         <div class="stat-card-label">Points Totaux</div>
-                        <div class="stat-card-value">
-                            <c:set var="totalPoints" value="0"/>
-                            <c:forEach var="client" items="${clients}">
-                                <c:set var="totalPoints" value="${totalPoints + client.pointsBalance}"/>
-                            </c:forEach>
-                            ${totalPoints}
-                        </div>
+                        <div class="stat-card-value">${totalPoints}</div>
                         <div class="stat-card-change">
                             <i class="fas fa-gift"></i>
                             <span>Points de fidélité</span>
@@ -117,9 +100,8 @@
                 </div>
             </div>
 
-            <!-- Table Section -->
             <div>
-                <!-- Table Actions Bar -->
+                
                 <div class="table-actions-bar">
                     <div class="table-actions-left">
                         <div class="search-input">
@@ -139,7 +121,6 @@
                     </div>
                 </div>
 
-                <!-- Table Container -->
                 <div class="table-container with-actions">
                     <table class="table">
                         <thead>
@@ -237,9 +218,20 @@
                             </c:choose>
                         </tbody>
                     </table>
+
+                    <div id="noResultsMessage" style="display: none;">
+                        <div class="empty-state" style="padding: var(--space-12) var(--space-6);">
+                            <div class="empty-state-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="empty-state-title">Aucun résultat trouvé</div>
+                            <div class="empty-state-description">
+                                Aucun client ne correspond à vos critères de recherche.
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Pagination -->
                 <c:set var="baseUrl" value="${pageContext.request.contextPath}/admin/clients" />
                 <c:set var="itemName" value="client(s)" />
                 <jsp:include page="../components/pagination.jsp">
@@ -253,15 +245,44 @@
         </main>
     </div>
 
-    <!-- JavaScript -->
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
     <script>
-        // Search functionality
+         
+        function toggleNoResultsMessage() {
+            const rows = document.querySelectorAll('#clientsTableBody tr');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const tableElement = document.querySelector('.table');
+
+            let hasVisibleRows = false;
+            rows.forEach(row => {
+                 
+                if (row.querySelector('.empty-state')) {
+                    return;
+                }
+                if (row.style.display !== 'none') {
+                    hasVisibleRows = true;
+                }
+            });
+
+            if (!hasVisibleRows && rows.length > 0 && !rows[0].querySelector('.empty-state')) {
+                noResultsMessage.style.display = 'block';
+                tableElement.style.display = 'none';
+            } else {
+                noResultsMessage.style.display = 'none';
+                tableElement.style.display = 'table';
+            }
+        }
+
         document.getElementById('searchInput').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const rows = document.querySelectorAll('#clientsTableBody tr');
 
             rows.forEach(row => {
+                 
+                if (row.querySelector('.empty-state')) {
+                    return;
+                }
+
                 const text = row.textContent.toLowerCase();
                 if (text.includes(searchTerm)) {
                     row.style.display = '';
@@ -269,14 +290,20 @@
                     row.style.display = 'none';
                 }
             });
+
+            toggleNoResultsMessage();
         });
 
-        // Status filter functionality
         document.getElementById('statusFilter').addEventListener('change', function(e) {
             const filterValue = e.target.value;
             const rows = document.querySelectorAll('#clientsTableBody tr');
 
             rows.forEach(row => {
+                 
+                if (row.querySelector('.empty-state')) {
+                    return;
+                }
+
                 const status = row.dataset.status;
                 if (filterValue === '' || status === filterValue) {
                     row.style.display = '';
@@ -284,6 +311,8 @@
                     row.style.display = 'none';
                 }
             });
+
+            toggleNoResultsMessage();
         });
     </script>
 </body>

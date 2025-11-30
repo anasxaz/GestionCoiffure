@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import dao.AppointmentDAO;
 import dao.ClientDAO;
 import model.Client;
-
 
 @WebServlet("/admin/clients")
 public class ViewClientsServlet extends HttpServlet {
@@ -40,7 +38,6 @@ public class ViewClientsServlet extends HttpServlet {
             return;
         }
 
-        // Get pagination parameters
         int page = 1;
         int pageSize = 10;
 
@@ -54,24 +51,26 @@ public class ViewClientsServlet extends HttpServlet {
             }
         }
 
-        // Get paginated clients
         List<Client> clients = clientDAO.findAll(page, pageSize);
         int totalClients = clientDAO.getTotalCount();
         int totalPages = (int) Math.ceil((double) totalClients / pageSize);
 
-        // Get appointment count for each client
+        int loyalClientCount = clientDAO.getLoyalClientCount();
+        int totalPoints = clientDAO.getTotalPoints();
+
         Map<Integer, Integer> appointmentCounts = new HashMap<>();
         for (Client client : clients) {
             int count = clientDAO.getCompletedAppointmentCount(client.getClientId());
             appointmentCounts.put(client.getClientId(), count);
         }
 
-        // Set attributes
         request.setAttribute("clients", clients);
         request.setAttribute("appointmentCounts", appointmentCounts);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("totalClients", totalClients);
+        request.setAttribute("loyalClientCount", loyalClientCount);
+        request.setAttribute("totalPoints", totalPoints);
         request.setAttribute("pageSize", pageSize);
 
         request.getRequestDispatcher("/WEB-INF/views/admin/clients.jsp").forward(request, response);

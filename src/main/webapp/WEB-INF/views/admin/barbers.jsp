@@ -7,16 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Coiffeurs - Admin Dashboard</title>
 
-    <!-- Design System CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/design-system.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dashboard-page">
-    <!-- Navigation Bar -->
+    
     <nav class="navbar role-admin">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -49,9 +47,8 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="dashboard-main">
-        <!-- Page Header -->
+        
         <div class="page-header-row">
             <div class="page-header-info">
                 <h1 class="page-title">Gestion des Coiffeurs</h1>
@@ -65,7 +62,6 @@
             </div>
         </div>
 
-        <!-- Success/Error Alerts -->
         <c:if test="${param.success == 'created'}">
             <div class="alert alert-success">
                 <i class="fas fa-check-circle alert-icon"></i>
@@ -132,7 +128,6 @@
             </div>
         </c:if>
 
-        <!-- Statistics Cards -->
         <c:if test="${totalBarbers > 0}">
             <div class="metrics-row">
                 <div class="stat-card">
@@ -192,7 +187,6 @@
             </div>
         </c:if>
 
-        <!-- Barbers Table -->
         <c:choose>
             <c:when test="${empty barbers}">
                 <div class="card">
@@ -212,7 +206,7 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <!-- Table Actions Bar -->
+                
                 <div class="table-actions-bar">
                     <div class="table-actions-left">
                         <div class="search-input">
@@ -229,7 +223,6 @@
                     </div>
                 </div>
 
-                <!-- Table Container -->
                 <div class="table-container with-actions">
                     <table class="table" id="barbersTable">
                         <thead>
@@ -313,7 +306,6 @@
                     </div>
                 </div>
 
-                <!-- Pagination -->
                 <c:set var="baseUrl" value="${pageContext.request.contextPath}/admin/barbers" />
                 <c:set var="itemName" value="coiffeur(s)" />
                 <jsp:include page="../components/pagination.jsp">
@@ -327,7 +319,6 @@
         </c:choose>
     </main>
 
-    <!-- JavaScript -->
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
     <script>
         // Search functionality

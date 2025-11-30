@@ -7,16 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gérer les Disponibilités - Barbershop</title>
 
-    <!-- Design System CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/design-system.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dashboard-page">
-    <!-- Navigation Bar -->
+    
     <nav class="navbar role-admin">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -48,9 +46,8 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="dashboard-main">
-        <!-- Page Header -->
+        
         <div class="page-header-row">
             <div class="page-header-info">
                 <h1 class="page-title">Disponibilités des Coiffeurs</h1>
@@ -64,7 +61,6 @@
             </div>
         </div>
 
-        <!-- Alert Messages -->
         <c:if test="${param.success == 'created'}">
             <div class="alert alert-success">
                 <i class="fas fa-check-circle alert-icon"></i>
@@ -95,7 +91,6 @@
             </div>
         </c:if>
 
-        <!-- Barbers Availability List -->
         <c:choose>
             <c:when test="${not empty barbers}">
                 <c:forEach var="barber" items="${barbers}">
@@ -216,7 +211,6 @@
         </c:choose>
     </main>
 
-    <!-- JavaScript -->
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
 </body>
 </html>

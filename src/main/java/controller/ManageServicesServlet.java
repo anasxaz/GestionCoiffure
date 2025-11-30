@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import dao.ServiceDAO;
 import service.Service;
-
 
 @WebServlet("/admin/services")
 public class ManageServicesServlet extends HttpServlet {
@@ -93,7 +91,6 @@ public class ManageServicesServlet extends HttpServlet {
     private void listServices(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get pagination parameters
         int page = 1;
         int pageSize = 10;
 
@@ -107,12 +104,10 @@ public class ManageServicesServlet extends HttpServlet {
             }
         }
 
-        // Get paginated services
         List<Service> services = serviceDAO.findAll(page, pageSize);
         int totalServices = serviceDAO.getTotalCount();
         int totalPages = (int) Math.ceil((double) totalServices / pageSize);
 
-        // Set attributes
         request.setAttribute("services", services);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);

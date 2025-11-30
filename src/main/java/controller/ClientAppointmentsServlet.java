@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +18,6 @@ import dao.ServiceDAO;
 import model.Appointment;
 import model.OfferRedemption;
 import service.Service;
-
-
 
 @WebServlet("/client/appointments")
 public class ClientAppointmentsServlet extends HttpServlet {
@@ -56,12 +53,11 @@ public class ClientAppointmentsServlet extends HttpServlet {
         
         List<Appointment> appointments = appointmentDAO.findByClientId(clientId);
 
-        // Load service data for pricing
         Map<Integer, Service> serviceMap = new HashMap<>();
         Map<Integer, OfferRedemption> redemptionMap = new HashMap<>();
 
         for (Appointment apt : appointments) {
-            // Load service if not already loaded
+             
             if (!serviceMap.containsKey(apt.getServiceId())) {
                 Service svc = serviceDAO.findById(apt.getServiceId());
                 if (svc != null) {
@@ -69,7 +65,6 @@ public class ClientAppointmentsServlet extends HttpServlet {
                 }
             }
 
-            // Load offer redemption if exists
             if (!redemptionMap.containsKey(apt.getAppointmentId())) {
                 OfferRedemption redemption = ((OfferDAO) offerDAO).findRedemptionByAppointmentId(apt.getAppointmentId());
                 if (redemption != null) {
@@ -90,8 +85,7 @@ public class ClientAppointmentsServlet extends HttpServlet {
         try {
             int appointmentId = Integer.parseInt(request.getParameter("id"));
             Appointment appointment = appointmentDAO.findById(appointmentId);
-            
-            // Verify appointment belongs to client
+
             if (appointment != null && appointment.getClientId() == clientId) {
                 boolean success = appointmentDAO.cancel(appointmentId, "Annulé par le client");
                 if (success) {

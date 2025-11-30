@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dashboard-page">
-    <!-- Navigation -->
+    
     <nav class="navbar role-barber">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -34,9 +34,8 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="dashboard-main">
-        <!-- Page Header -->
+        
         <div class="page-header-row">
             <div class="page-header-info">
                 <h1 class="page-title">Mes Rendez-vous</h1>
@@ -44,7 +43,6 @@
             </div>
         </div>
 
-        <!-- Success Alerts -->
         <c:if test="${param.success == 'confirmed'}">
             <div class="alert alert-success">
                 <i class="alert-icon fas fa-check-circle"></i>
@@ -73,7 +71,6 @@
             </div>
         </c:if>
 
-        <!-- Appointments Table -->
         <c:choose>
             <c:when test="${not empty appointments}">
                 <div class="table-container">
@@ -167,7 +164,6 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
                 <c:set var="baseUrl" value="${pageContext.request.contextPath}/barber/appointments" />
                 <c:set var="itemName" value="rendez-vous" />
                 <jsp:include page="../components/pagination.jsp">

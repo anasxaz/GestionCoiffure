@@ -13,10 +13,7 @@ import model.Availability;
 import util.DatabaseUtil;
 
 public class AvailabilityDAO {
-    
-    /**
-     * Find availability by ID
-     */
+
     public Availability findById(int availabilityId) {
         String sql = "SELECT * FROM Availability WHERE availability_id = ?";
         
@@ -37,10 +34,7 @@ public class AvailabilityDAO {
         
         return null;
     }
-    
-    /**
-     * Get all availabilities for a barber
-     */
+
     public List<Availability> findByBarberId(int barberId) {
         List<Availability> availabilities = new ArrayList<>();
         String sql = "SELECT * FROM Availability WHERE barber_id = ? ORDER BY FIELD(day_of_week, 'Mon','Tue','Wed','Thu','Fri','Sat','Sun'), start_time";
@@ -62,10 +56,7 @@ public class AvailabilityDAO {
         
         return availabilities;
     }
-    
-    /**
-     * Get availability by barber and day
-     */
+
     public Availability findByBarberAndDay(int barberId, String dayOfWeek) {
         String sql = "SELECT * FROM Availability WHERE barber_id = ? AND day_of_week = ?";
         
@@ -87,10 +78,7 @@ public class AvailabilityDAO {
         
         return null;
     }
-    
-    /**
-     * Get all availabilities
-     */
+
     public List<Availability> findAll() {
         List<Availability> availabilities = new ArrayList<>();
         String sql = "SELECT a.*, b.name as barber_name FROM Availability a " +
@@ -114,10 +102,7 @@ public class AvailabilityDAO {
         
         return availabilities;
     }
-    
-    /**
-     * Create new availability
-     */
+
     public boolean create(Availability availability) {
         String sql = "INSERT INTO Availability (barber_id, day_of_week, start_time, end_time) VALUES (?, ?, ?, ?)";
         
@@ -146,10 +131,7 @@ public class AvailabilityDAO {
         
         return false;
     }
-    
-    /**
-     * Update availability
-     */
+
     public boolean update(Availability availability) {
         String sql = "UPDATE Availability SET day_of_week = ?, start_time = ?, end_time = ? WHERE availability_id = ?";
         
@@ -170,10 +152,7 @@ public class AvailabilityDAO {
         
         return false;
     }
-    
-    /**
-     * Delete availability
-     */
+
     public boolean delete(int availabilityId) {
         String sql = "DELETE FROM Availability WHERE availability_id = ?";
         
@@ -190,10 +169,7 @@ public class AvailabilityDAO {
         
         return false;
     }
-    
-    /**
-     * Delete all availabilities for a barber
-     */
+
     public boolean deleteByBarberId(int barberId) {
         String sql = "DELETE FROM Availability WHERE barber_id = ?";
         
@@ -210,10 +186,7 @@ public class AvailabilityDAO {
         
         return false;
     }
-    
-    /**
-     * Extract Availability object from ResultSet
-     */
+
     private Availability extractAvailabilityFromResultSet(ResultSet rs) throws SQLException {
         Availability availability = new Availability();
         availability.setAvailabilityId(rs.getInt("availability_id"));

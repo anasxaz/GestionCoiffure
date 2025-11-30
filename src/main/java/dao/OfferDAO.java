@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,10 +14,7 @@ import model.OfferRedemption;
 import util.DatabaseUtil;
 
 public class OfferDAO {
-    
-    /**
-     * Find offer by ID
-     */
+
     public Offer findById(int offerId) {
         String sql = "SELECT * FROM Offer WHERE offer_id = ?";
         
@@ -39,10 +35,7 @@ public class OfferDAO {
         
         return null;
     }
-    
-    /**
-     * Get all offers
-     */
+
     public List<Offer> findAll() {
         List<Offer> offers = new ArrayList<>();
         String sql = "SELECT * FROM Offer ORDER BY points_required ASC";
@@ -62,10 +55,7 @@ public class OfferDAO {
         
         return offers;
     }
-    
-    /**
-     * Get all active offers
-     */
+
     public List<Offer> findAllActive() {
         List<Offer> offers = new ArrayList<>();
         String sql = "SELECT * FROM Offer WHERE is_active = TRUE ORDER BY points_required ASC";
@@ -85,10 +75,7 @@ public class OfferDAO {
         
         return offers;
     }
-    
-    /**
-     * Get offers that client can afford
-     */
+
     public List<Offer> findAffordableOffers(int clientPoints) {
         List<Offer> offers = new ArrayList<>();
         String sql = "SELECT * FROM Offer WHERE is_active = TRUE AND points_required <= ? ORDER BY points_required ASC";
@@ -110,10 +97,7 @@ public class OfferDAO {
         
         return offers;
     }
-    
-    /**
-     * Create new offer
-     */
+
     public boolean create(Offer offer) {
         String sql = "INSERT INTO Offer (title, description, points_required, is_active) VALUES (?, ?, ?, ?)";
         
@@ -142,10 +126,7 @@ public class OfferDAO {
         
         return false;
     }
-    
-    /**
-     * Update offer
-     */
+
     public boolean update(Offer offer) {
         String sql = "UPDATE Offer SET title = ?, description = ?, points_required = ?, is_active = ? WHERE offer_id = ?";
         
@@ -167,10 +148,7 @@ public class OfferDAO {
         
         return false;
     }
-    
-    /**
-     * Delete offer
-     */
+
     public boolean delete(int offerId) {
         String sql = "DELETE FROM Offer WHERE offer_id = ?";
         
@@ -187,10 +165,7 @@ public class OfferDAO {
         
         return false;
     }
-    
-    /**
-     * Toggle offer active status
-     */
+
     public boolean toggleActive(int offerId) {
         String sql = "UPDATE Offer SET is_active = NOT is_active WHERE offer_id = ?";
         
@@ -207,10 +182,7 @@ public class OfferDAO {
         
         return false;
     }
-    
-    /**
-     * Redeem offer for client (deducts points and creates redemption record)
-     */
+
     public boolean redeemOffer(int clientId, int offerId) {
         Connection conn = null;
         PreparedStatement stmt1 = null;
@@ -220,9 +192,8 @@ public class OfferDAO {
 
         try {
             conn = DatabaseUtil.getConnection();
-            conn.setAutoCommit(false); // Start transaction
+            conn.setAutoCommit(false);  
 
-            // 1. Get offer details to know points required
             String getOfferSql = "SELECT points_required FROM Offer WHERE offer_id = ?";
             stmt1 = conn.prepareStatement(getOfferSql);
             stmt1.setInt(1, offerId);
@@ -230,14 +201,13 @@ public class OfferDAO {
 
             if (!rs.next()) {
                 conn.rollback();
-                return false; // Offer not found
+                return false;  
             }
 
             int pointsRequired = rs.getInt("points_required");
             rs.close();
             stmt1.close();
 
-            // 2. Deduct points from client
             String deductPointsSql = "UPDATE Client SET points_balance = points_balance - ? WHERE client_id = ? AND points_balance >= ?";
             stmt2 = conn.prepareStatement(deductPointsSql);
             stmt2.setInt(1, pointsRequired);
@@ -247,11 +217,10 @@ public class OfferDAO {
             int rowsUpdated = stmt2.executeUpdate();
             if (rowsUpdated == 0) {
                 conn.rollback();
-                return false; // Not enough points
+                return false;  
             }
             stmt2.close();
 
-            // 3. Create redemption record
             String insertRedemptionSql = "INSERT INTO OfferRedemption (client_id, offer_id) VALUES (?, ?)";
             stmt3 = conn.prepareStatement(insertRedemptionSql);
             stmt3.setInt(1, clientId);
@@ -294,10 +263,7 @@ public class OfferDAO {
 
         return false;
     }
-    
-    /**
-     * Get all redeemed offers for a client with details
-     */
+
     public List<OfferRedemption> findRedeemedOffersByClient(int clientId) {
         List<OfferRedemption> redemptions = new ArrayList<>();
         String sql = "SELECT r.*, o.title, o.description, o.points_required " +
@@ -324,9 +290,6 @@ public class OfferDAO {
         return redemptions;
     }
 
-    /**
-     * Get unused (available) redeemed offers for a client
-     */
     public List<OfferRedemption> findUnusedRedeemedOffersByClient(int clientId) {
         List<OfferRedemption> redemptions = new ArrayList<>();
         String sql = "SELECT r.*, o.title, o.description, o.points_required " +
@@ -353,9 +316,6 @@ public class OfferDAO {
         return redemptions;
     }
 
-    /**
-     * Mark redemption as used for an appointment
-     */
     public boolean markRedemptionAsUsed(int redemptionId, int appointmentId) {
         String sql = "UPDATE OfferRedemption SET is_used = TRUE, appointment_id = ?, used_at = CURRENT_TIMESTAMP WHERE redemption_id = ?";
 
@@ -375,9 +335,6 @@ public class OfferDAO {
         return false;
     }
 
-    /**
-     * Find offer redemption by appointment ID
-     */
     public OfferRedemption findRedemptionByAppointmentId(int appointmentId) {
         String sql = "SELECT r.*, o.title, o.description, o.points_required " +
                      "FROM OfferRedemption r " +
@@ -402,9 +359,6 @@ public class OfferDAO {
         return null;
     }
 
-    /**
-     * Extract Offer object from ResultSet
-     */
     private Offer extractOfferFromResultSet(ResultSet rs) throws SQLException {
         Offer offer = new Offer();
         offer.setOfferId(rs.getInt("offer_id"));
@@ -421,9 +375,6 @@ public class OfferDAO {
         return offer;
     }
 
-    /**
-     * Extract OfferRedemption object from ResultSet
-     */
     private OfferRedemption extractOfferRedemptionFromResultSet(ResultSet rs) throws SQLException {
         OfferRedemption redemption = new OfferRedemption();
         redemption.setRedemptionId(rs.getInt("redemption_id"));
@@ -446,7 +397,6 @@ public class OfferDAO {
             redemption.setUsedAt(usedAt.toLocalDateTime());
         }
 
-        // Set offer details if present
         redemption.setOfferTitle(rs.getString("title"));
         redemption.setOfferDescription(rs.getString("description"));
         redemption.setPointsRequired(rs.getInt("points_required"));

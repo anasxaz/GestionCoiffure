@@ -1,6 +1,5 @@
 package model;
 
-
 import java.time.LocalDateTime;
 
 public class Client {
@@ -10,10 +9,9 @@ public class Client {
     private String passwordHash;
     private String phone;
     private int pointsBalance;
-    private String loyaltyStatus; // 'standard' or 'fidele'
+    private String loyaltyStatus;  
     private LocalDateTime createdAt;
-    
-    // Constructors
+
     public Client() {
     }
     
@@ -28,8 +26,7 @@ public class Client {
         this.loyaltyStatus = loyaltyStatus;
         this.createdAt = createdAt;
     }
-    
-    // Getters and Setters
+
     public int getClientId() {
         return clientId;
     }

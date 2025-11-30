@@ -4,11 +4,10 @@ public class Service {
     private int serviceId;
     private String name;
     private String description;
-    private int duration; // in minutes
+    private int duration;  
     private double price;
     private boolean isActive;
-    
-    // Constructors
+
     public Service() {
     }
     
@@ -21,8 +20,7 @@ public class Service {
         this.price = price;
         this.isActive = isActive;
     }
-    
-    // Getters and Setters
+
     public int getServiceId() {
         return serviceId;
     }

@@ -7,16 +7,14 @@ public class OfferRedemption {
     private int clientId;
     private int offerId;
     private boolean isUsed;
-    private Integer appointmentId; // Nullable - set when the offer is used in an appointment
+    private Integer appointmentId;  
     private LocalDateTime redeemedAt;
     private LocalDateTime usedAt;
 
-    // For display purposes
     private String offerTitle;
     private String offerDescription;
     private int pointsRequired;
 
-    // Constructors
     public OfferRedemption() {
     }
 
@@ -31,7 +29,6 @@ public class OfferRedemption {
         this.usedAt = usedAt;
     }
 
-    // Getters and Setters
     public int getRedemptionId() {
         return redemptionId;
     }

@@ -8,14 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistiques - GestionCoiffure</title>
 
-    <!-- CSS Files -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/design-system.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Custom Chart Styles */
+         
         .chart-card {
             background: white;
             border: 1px solid var(--color-neutral-200);
@@ -42,7 +41,6 @@
             color: var(--color-primary);
         }
 
-        /* Bar Chart */
         .bar-chart {
             display: flex;
             flex-direction: column;
@@ -112,7 +110,6 @@
             background: linear-gradient(90deg, var(--color-warning), var(--color-warning-light));
         }
 
-        /* Pie Chart */
         .pie-chart-container {
             display: flex;
             align-items: center;
@@ -181,7 +178,6 @@
             font-size: var(--text-base);
         }
 
-        /* Grid Layout */
         .charts-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -198,7 +194,7 @@
 </head>
 <body>
     <div class="dashboard-page">
-        <!-- Navigation Bar -->
+        
         <nav class="navbar role-admin">
             <div class="navbar-container">
                 <div class="navbar-brand">
@@ -231,9 +227,8 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <main class="dashboard-main">
-            <!-- Page Header -->
+            
             <div class="page-header-row">
                 <div class="page-header-info">
                     <h1 class="page-title">Statistiques & Rapports</h1>
@@ -241,7 +236,6 @@
                 </div>
             </div>
 
-            <!-- Metrics Row -->
             <div class="metrics-row">
                 <div class="stat-card" style="background: linear-gradient(135deg, var(--color-admin) 0%, var(--color-admin-light) 100%); border: none; color: white;">
                     <div class="stat-card-icon" style="background: rgba(255, 255, 255, 0.2); color: white;">
@@ -303,9 +297,8 @@
                 </div>
             </div>
 
-            <!-- Charts Grid -->
             <div class="charts-grid">
-                <!-- Pie Chart - Appointment Status Distribution -->
+                
                 <div class="chart-card">
                     <div class="chart-title">
                         <i class="fas fa-chart-pie"></i>
@@ -350,7 +343,6 @@
                     </div>
                 </div>
 
-                <!-- Bar Chart - Top Services -->
                 <div class="chart-card">
                     <div class="chart-title">
                         <i class="fas fa-trophy"></i>
@@ -397,7 +389,6 @@
                     </div>
                 </div>
 
-                <!-- Bar Chart - Top Barbers -->
                 <div class="chart-card">
                     <div class="chart-title">
                         <i class="fas fa-star"></i>
@@ -444,7 +435,6 @@
                     </div>
                 </div>
 
-                <!-- Bar Chart - Monthly Trends -->
                 <div class="chart-card">
                     <div class="chart-title">
                         <i class="fas fa-chart-line"></i>
@@ -492,7 +482,6 @@
                 </div>
             </div>
 
-            <!-- Recent Appointments Table -->
             <div>
                 <div class="chart-card">
                     <div class="chart-title">
@@ -591,7 +580,6 @@
         </main>
     </div>
 
-    <!-- JavaScript -->
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
 </body>
 </html>

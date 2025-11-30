@@ -12,14 +12,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord Client - Gestion Coiffure</title>
 
-    <!-- External Stylesheets -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/design-system.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dashboard-page">
-    <!-- Navigation Bar -->
+    
     <nav class="navbar role-client">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -39,9 +38,8 @@
         </div>
     </nav>
 
-    <!-- Main Dashboard Content -->
     <main class="dashboard-main">
-            <!-- Page Header -->
+            
             <div class="page-header-row">
                 <div class="page-header-info">
                     <h1 class="page-title">Bienvenue, ${sessionScope.userName}!</h1>
@@ -55,7 +53,6 @@
                 </div>
             </div>
 
-            <!-- Stats Row -->
             <div class="metrics-row">
                 <div class="stat-card">
                     <div class="stat-card-icon" style="background: var(--color-client-light);">
@@ -92,7 +89,6 @@
                 </div>
             </div>
 
-            <!-- Quick Actions Grid -->
             <div class="grid grid-auto-fill">
                 <a href="${pageContext.request.contextPath}/client/book-appointment" class="card card-hover" style="text-decoration: none; color: inherit;">
                     <div class="card-header">
@@ -132,7 +128,6 @@
             </div>
     </main>
 
-    <!-- External JavaScript -->
     <script src="${pageContext.request.contextPath}/js/app.js"></script>
 </body>
 </html>

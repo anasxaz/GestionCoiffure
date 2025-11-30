@@ -9,8 +9,7 @@ public class Offer {
     private int pointsRequired;
     private boolean isActive;
     private LocalDateTime createdAt;
-    
-    // Constructors
+
     public Offer() {
     }
     
@@ -23,8 +22,7 @@ public class Offer {
         this.isActive = isActive;
         this.createdAt = createdAt;
     }
-    
-    // Getters and Setters
+
     public int getOfferId() {
         return offerId;
     }

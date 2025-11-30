@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/design-system.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Landing Page Specific Styles */
+         
         .hero-section {
             min-height: 100vh;
             display: flex;
@@ -91,14 +91,12 @@
             justify-content: center;
         }
 
-        /* Custom SVG Illustration */
         .salon-illustration {
             width: 100%;
             max-width: 500px;
             height: auto;
         }
 
-        /* Features Section */
         .features-section {
             padding: var(--space-20) 0;
             background: white;
@@ -179,7 +177,6 @@
             line-height: var(--line-height-relaxed);
         }
 
-        /* Demo Credentials Section */
         .demo-section {
             padding: var(--space-20) 0;
             background: var(--color-neutral-50);
@@ -271,7 +268,6 @@
             width: 16px;
         }
 
-        /* CTA Section */
         .cta-section {
             padding: var(--space-20) 0;
             background: var(--color-neutral-900);
@@ -326,7 +322,6 @@
             color: var(--color-neutral-900);
         }
 
-        /* Footer */
         .footer {
             padding: var(--space-12) 0;
             background: white;
@@ -365,7 +360,6 @@
             color: var(--color-neutral-500);
         }
 
-        /* Responsive */
         @media (max-width: 1024px) {
             .hero-grid {
                 grid-template-columns: 1fr;
@@ -411,7 +405,7 @@
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
+    
     <section class="hero-section">
         <div class="hero-background">
             <div class="hero-background-circle circle-1"></div>
@@ -437,12 +431,11 @@
                     </div>
                 </div>
                 <div class="hero-illustration">
-                    <!-- Custom SVG Illustration -->
+                    
                     <svg class="salon-illustration" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Background Elements -->
+                        
                         <circle cx="250" cy="250" r="200" fill="#f5f5f5"/>
 
-                        <!-- Salon Chair -->
                         <rect x="180" y="220" width="140" height="160" rx="20" fill="#262626"/>
                         <rect x="190" y="230" width="120" height="100" rx="15" fill="#404040"/>
                         <rect x="200" y="340" width="20" height="60" fill="#171717"/>
@@ -450,8 +443,6 @@
                         <circle cx="190" cy="410" r="15" fill="#525252"/>
                         <circle cx="310" cy="410" r="15" fill="#525252"/>
 
-                        <!-- Barber Tools -->
-                        <!-- Scissors -->
                         <g transform="translate(100, 150)">
                             <circle cx="0" cy="0" r="12" fill="none" stroke="#2563eb" stroke-width="3"/>
                             <circle cx="25" cy="25" r="12" fill="none" stroke="#2563eb" stroke-width="3"/>
@@ -460,7 +451,6 @@
                             <line x1="33" y1="33" x2="45" y2="45" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
                         </g>
 
-                        <!-- Comb -->
                         <g transform="translate(360, 160)">
                             <rect x="0" y="0" width="50" height="15" rx="3" fill="#0891b2"/>
                             <rect x="5" y="15" width="3" height="25" fill="#0891b2"/>
@@ -471,11 +461,9 @@
                             <rect x="40" y="15" width="3" height="25" fill="#0891b2"/>
                         </g>
 
-                        <!-- Mirror Frame -->
                         <rect x="210" y="80" width="80" height="110" rx="40" fill="none" stroke="#a3a3a3" stroke-width="8"/>
                         <rect x="220" y="90" width="60" height="90" rx="30" fill="#e5e5e5" opacity="0.3"/>
 
-                        <!-- Decorative Stars -->
                         <circle cx="120" cy="280" r="4" fill="#f59e0b"/>
                         <circle cx="380" cy="300" r="4" fill="#f59e0b"/>
                         <circle cx="140" cy="350" r="3" fill="#2563eb"/>
@@ -486,7 +474,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features-section">
         <div class="container">
             <div class="section-header">
@@ -561,7 +548,6 @@
         </div>
     </section>
 
-    <!-- Demo Credentials Section -->
     <section class="demo-section">
         <div class="container">
             <div class="section-header">
@@ -571,7 +557,7 @@
                 </p>
             </div>
             <div class="demo-grid">
-                <!-- Admin Account -->
+                
                 <div class="demo-card">
                     <div class="demo-card-header">
                         <div class="demo-card-icon admin">
@@ -594,7 +580,6 @@
                     </div>
                 </div>
 
-                <!-- Barber Account -->
                 <div class="demo-card">
                     <div class="demo-card-header">
                         <div class="demo-card-icon barber">
@@ -617,7 +602,6 @@
                     </div>
                 </div>
 
-                <!-- Client Account -->
                 <div class="demo-card">
                     <div class="demo-card-header">
                         <div class="demo-card-icon client">
@@ -643,7 +627,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
             <h2>Prêt à Commencer ?</h2>
@@ -663,7 +646,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">

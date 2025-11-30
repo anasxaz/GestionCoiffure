@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -21,16 +20,12 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         
         if (session != null) {
-            // Log the logout
+             
             String userName = (String) session.getAttribute("userName");
             String userType = (String) session.getAttribute("userType");
-            System.out.println("User logged out: " + userName + " (" + userType + ")");
-            
-            // Invalidate session
             session.invalidate();
         }
-        
-        // Redirect to login page with logout message
+
         response.sendRedirect(request.getContextPath() + "/login?logout=success");
     }
     

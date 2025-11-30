@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +13,7 @@ import model.Client;
 import util.DatabaseUtil;
 
 public class ClientDAO {
-    
-    /**
-     * Find client by email
-     */
+
     public Client findByEmail(String email) {
         String sql = "SELECT * FROM Client WHERE email = ?";
         
@@ -38,10 +34,7 @@ public class ClientDAO {
         
         return null;
     }
-    
-    /**
-     * Find client by ID
-     */
+
     public Client findById(int clientId) {
         String sql = "SELECT * FROM Client WHERE client_id = ?";
         
@@ -62,10 +55,7 @@ public class ClientDAO {
         
         return null;
     }
-    
-    /**
-     * Get all clients
-     */
+
     public List<Client> findAll() {
         List<Client> clients = new ArrayList<>();
         String sql = "SELECT * FROM Client ORDER BY name";
@@ -86,12 +76,6 @@ public class ClientDAO {
         return clients;
     }
 
-    /**
-     * Get paginated list of clients
-     * @param page Page number (1-based)
-     * @param pageSize Number of records per page
-     * @return List of clients for the specified page
-     */
     public List<Client> findAll(int page, int pageSize) {
         List<Client> clients = new ArrayList<>();
         int offset = (page - 1) * pageSize;
@@ -116,10 +100,6 @@ public class ClientDAO {
         return clients;
     }
 
-    /**
-     * Get total count of clients
-     * @return Total number of clients
-     */
     public int getTotalCount() {
         String sql = "SELECT COUNT(*) as total FROM Client";
 
@@ -138,10 +118,45 @@ public class ClientDAO {
 
         return 0;
     }
-    
-    /**
-     * Create new client (registration)
-     */
+
+    public int getLoyalClientCount() {
+        String sql = "SELECT COUNT(*) as total FROM Client WHERE loyalty_status = 'fidele'";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error getting loyal client count: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public int getTotalPoints() {
+        String sql = "SELECT SUM(points_balance) as total FROM Client";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error getting total points: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
     public boolean create(Client client) {
         String sql = "INSERT INTO Client (name, email, password_hash, phone, points_balance, loyalty_status) VALUES (?, ?, ?, ?, ?, ?)";
         
@@ -172,10 +187,7 @@ public class ClientDAO {
         
         return false;
     }
-    
-    /**
-     * Update client profile
-     */
+
     public boolean update(Client client) {
         String sql = "UPDATE Client SET name = ?, email = ?, phone = ? WHERE client_id = ?";
         
@@ -196,10 +208,7 @@ public class ClientDAO {
         
         return false;
     }
-    
-    /**
-     * Update client points
-     */
+
     public boolean updatePoints(int clientId, int points) {
         String sql = "UPDATE Client SET points_balance = ? WHERE client_id = ?";
         
@@ -218,10 +227,7 @@ public class ClientDAO {
         
         return false;
     }
-    
-    /**
-     * Update loyalty status
-     */
+
     public boolean updateLoyaltyStatus(int clientId, String status) {
         String sql = "UPDATE Client SET loyalty_status = ? WHERE client_id = ?";
         
@@ -240,10 +246,7 @@ public class ClientDAO {
         
         return false;
     }
-    
-    /**
-     * Get appointment count for client (for loyalty program)
-     */
+
     public int getCompletedAppointmentCount(int clientId) {
         String sql = "SELECT COUNT(*) as count FROM Appointment WHERE client_id = ? AND status = 'completed'";
         
@@ -264,10 +267,7 @@ public class ClientDAO {
         
         return 0;
     }
-    
-    /**
-     * Extract Client object from ResultSet
-     */
+
     private Client extractClientFromResultSet(ResultSet rs) throws SQLException {
         Client client = new Client();
         client.setClientId(rs.getInt("client_id"));

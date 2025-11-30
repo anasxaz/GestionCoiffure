@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="dashboard-page">
-        <!-- Navigation Bar -->
+        
         <nav class="navbar role-admin">
             <div class="navbar-container">
                 <div class="navbar-brand">
@@ -39,9 +39,8 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <main class="dashboard-main">
-            <!-- Page Header -->
+            
             <div class="page-header-row">
                 <div class="page-header-info">
                     <h1 class="page-title">${empty offer ? 'Nouvelle Offre' : 'Modifier l\'Offre'}</h1>
@@ -51,7 +50,6 @@
                 </div>
             </div>
 
-            <!-- Info Alert -->
             <div class="alert alert-info">
                 <i class="fas fa-info-circle alert-icon"></i>
                 <div class="alert-content">
@@ -60,7 +58,6 @@
                 </div>
             </div>
 
-            <!-- Form Section -->
             <form action="${pageContext.request.contextPath}/admin/offers" method="post">
                 <input type="hidden" name="action" value="${empty offer ? 'create' : 'update'}">
                 <c:if test="${not empty offer}">
@@ -75,7 +72,6 @@
                         </h2>
                     </div>
 
-                    <!-- Title Field -->
                     <div class="form-group">
                         <label for="title" class="form-label form-label-required">
                             <i class="fas fa-tag"></i>
@@ -96,7 +92,6 @@
                         </span>
                     </div>
 
-                    <!-- Description Field -->
                     <div class="form-group">
                         <label for="description" class="form-label">
                             <i class="fas fa-align-left"></i>
@@ -115,7 +110,6 @@
                         </span>
                     </div>
 
-                    <!-- Points Required Field -->
                     <div class="form-group">
                         <label for="pointsRequired" class="form-label form-label-required">
                             <i class="fas fa-coins"></i>
@@ -137,7 +131,6 @@
                         </span>
                     </div>
 
-                    <!-- Active Status Field -->
                     <div class="form-group">
                         <label class="form-label">
                             <i class="fas fa-toggle-on"></i>
@@ -160,7 +153,6 @@
                     </div>
                 </div>
 
-                <!-- Summary Card -->
                 <c:if test="${not empty offer}">
                     <div class="card card-accent">
                         <div class="card-header">
@@ -206,7 +198,6 @@
                     </div>
                 </c:if>
 
-                <!-- Form Buttons -->
                 <div class="form-buttons">
                     <a href="${pageContext.request.contextPath}/admin/offers" class="btn btn-secondary">
                         <i class="fas fa-times"></i>
@@ -219,7 +210,6 @@
                 </div>
             </form>
 
-            <!-- Help Section -->
             <div class="card card-flat" style="margin-top: var(--space-6);">
                 <div class="card-header">
                     <h3 class="card-title">

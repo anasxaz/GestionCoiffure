@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import dao.AppointmentDAO;
 import model.Appointment;
-
 
 @WebServlet("/admin/appointments")
 public class AdminAppointmentsServlet extends HttpServlet {
@@ -42,7 +40,6 @@ public class AdminAppointmentsServlet extends HttpServlet {
             return;
         }
 
-        // Get pagination parameters
         int page = 1;
         int pageSize = 10;
 
@@ -56,16 +53,21 @@ public class AdminAppointmentsServlet extends HttpServlet {
             }
         }
 
-        // Get paginated appointments
         List<Appointment> appointments = appointmentDAO.findAll(page, pageSize);
         int totalAppointments = appointmentDAO.getTotalCount();
         int totalPages = (int) Math.ceil((double) totalAppointments / pageSize);
 
-        // Set attributes
+        int pendingCount = appointmentDAO.getCountByStatus("pending");
+        int confirmedCount = appointmentDAO.getCountByStatus("confirmed");
+        int completedCount = appointmentDAO.getCountByStatus("completed");
+
         request.setAttribute("appointments", appointments);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("totalAppointments", totalAppointments);
+        request.setAttribute("pendingCount", pendingCount);
+        request.setAttribute("confirmedCount", confirmedCount);
+        request.setAttribute("completedCount", completedCount);
         request.setAttribute("pageSize", pageSize);
 
         request.getRequestDispatcher("/WEB-INF/views/admin/appointments.jsp").forward(request, response);

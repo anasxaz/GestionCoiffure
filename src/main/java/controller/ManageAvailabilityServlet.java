@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
@@ -16,7 +15,6 @@ import dao.AvailabilityDAO;
 import dao.BarberDAO;
 import model.Availability;
 import model.Barber;
-
 
 @WebServlet("/admin/availability")
 public class ManageAvailabilityServlet extends HttpServlet {
@@ -105,8 +103,7 @@ public class ManageAvailabilityServlet extends HttpServlet {
             
             LocalTime startTime = LocalTime.parse(startTimeStr);
             LocalTime endTime = LocalTime.parse(endTimeStr);
-            
-            // Validate times
+
             if (endTime.isBefore(startTime) || endTime.equals(startTime)) {
                 request.setAttribute("error", "L'heure de fin doit être après l'heure de début");
                 showAddForm(request, response);

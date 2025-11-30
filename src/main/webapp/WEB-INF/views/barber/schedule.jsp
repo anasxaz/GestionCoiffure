@@ -34,7 +34,7 @@
     </style>
 </head>
 <body class="dashboard-page">
-    <!-- Navigation -->
+    
     <nav class="navbar role-barber">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -56,9 +56,8 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="dashboard-main">
-        <!-- Page Header -->
+        
         <div class="page-header-row">
             <div class="page-header-info">
                 <h1 class="page-title">Mon Emploi du Temps</h1>
@@ -66,7 +65,6 @@
             </div>
         </div>
 
-        <!-- Availability Section -->
         <div class="card" style="margin-bottom: var(--space-8);">
             <div class="card-header">
                 <div>
@@ -122,7 +120,6 @@
             </div>
         </div>
 
-        <!-- Week Navigation -->
         <div class="week-navigation">
             <a href="${pageContext.request.contextPath}/barber/schedule?week=${previousWeek}" class="btn btn-secondary">
                 <i class="fas fa-chevron-left"></i>
@@ -138,7 +135,6 @@
             </a>
         </div>
 
-        <!-- Calendar -->
         <div class="schedule-grid">
             <div class="schedule-header">
                 <div class="schedule-header-cell"><i class="fas fa-clock"></i> Heure</div>

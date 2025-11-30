@@ -19,10 +19,7 @@ public class AuthenticationService {
         this.barberDAO = new BarberDAO();
         this.clientDAO = new ClientDAO();
     }
-    
-    /**
-     * Authenticate admin
-     */
+
     public Admin authenticateAdmin(String email, String password) {
         Admin admin = adminDAO.findByEmail(email);
         
@@ -32,28 +29,20 @@ public class AuthenticationService {
         
         return null;
     }
-    
-    /**
-     * Authenticate barber
-     */
+
     public Barber authenticateBarber(String email, String password) {
         Barber barber = barberDAO.findByEmail(email);
         
         if (barber != null && PasswordUtil.verifyPassword(password, barber.getPasswordHash())) {
-            // Check if barber is active
+             
             if ("active".equals(barber.getStatus())) {
                 return barber;
             } else {
-                System.out.println("Barber account is inactive");
             }
         }
-        
         return null;
     }
-    
-    /**
-     * Authenticate client
-     */
+
     public Client authenticateClient(String email, String password) {
         Client client = clientDAO.findByEmail(email);
         
@@ -63,24 +52,15 @@ public class AuthenticationService {
         
         return null;
     }
-    
-    /**
-     * Register new client
-     */
+
     public boolean registerClient(String name, String email, String password, String phone) {
-        // Check if email already exists
+         
         if (clientDAO.findByEmail(email) != null) {
-            System.out.println("Email already exists");
             return false;
         }
-        
-        // Validate password
         if (!PasswordUtil.isValidPassword(password)) {
-            System.out.println("Password does not meet requirements");
             return false;
         }
-        
-        // Create new client
         Client client = new Client();
         client.setName(name);
         client.setEmail(email);
@@ -91,10 +71,7 @@ public class AuthenticationService {
         
         return clientDAO.create(client);
     }
-    
-    /**
-     * Check if email exists in any user type
-     */
+
     public boolean emailExists(String email) {
         return adminDAO.findByEmail(email) != null ||
                barberDAO.findByEmail(email) != null ||

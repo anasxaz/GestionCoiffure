@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpSession;
 
 import util.DatabaseUtil;
 
-
 @WebServlet("/barber/clients")
 public class BarberClientsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -36,7 +34,6 @@ public class BarberClientsServlet extends HttpServlet {
         
         int barberId = (Integer) session.getAttribute("userId");
 
-        // Get pagination parameters
         int page = 1;
         int pageSize = 10;
 
@@ -51,7 +48,7 @@ public class BarberClientsServlet extends HttpServlet {
         }
 
         try {
-            // Get paginated clients who have had appointments with this barber
+             
             List<Map<String, Object>> clients = getBarberClients(barberId, page, pageSize);
             int totalClients = getTotalBarberClientsCount(barberId);
             int totalPages = (int) Math.ceil((double) totalClients / pageSize);

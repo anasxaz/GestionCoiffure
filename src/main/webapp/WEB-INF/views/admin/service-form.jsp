@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="dashboard-page">
-        <!-- Navigation Bar -->
+        
         <nav class="navbar role-admin">
             <div class="navbar-container">
                 <div class="navbar-brand">
@@ -39,10 +39,9 @@
             </div>
         </nav>
 
-        <!-- Main Content -->
         <main class="dashboard-main">
             <div class="container container-narrow">
-                <!-- Page Header -->
+                
                 <div class="page-header">
                     <h1 class="page-title">
                         <i class="fas ${empty service ? 'fa-plus-circle' : 'fa-edit'}"></i>
@@ -53,7 +52,6 @@
                     </p>
                 </div>
 
-                <!-- Form Section -->
                 <div class="form-section">
                     <form action="${pageContext.request.contextPath}/admin/services" method="post">
                         <input type="hidden" name="action" value="${empty service ? 'create' : 'update'}">
@@ -61,7 +59,6 @@
                             <input type="hidden" name="serviceId" value="${service.serviceId}">
                         </c:if>
 
-                        <!-- Service Name -->
                         <div class="form-group">
                             <label for="name" class="form-label form-label-required">
                                 <i class="fas fa-scissors"></i>
@@ -81,7 +78,6 @@
                             </span>
                         </div>
 
-                        <!-- Description -->
                         <div class="form-group">
                             <label for="description" class="form-label">
                                 <i class="fas fa-align-left"></i>
@@ -99,9 +95,8 @@
                             </span>
                         </div>
 
-                        <!-- Duration and Price -->
                         <div class="form-two-column">
-                            <!-- Duration -->
+                            
                             <div class="form-group">
                                 <label for="duration" class="form-label form-label-required">
                                     <i class="fas fa-clock"></i>
@@ -123,7 +118,6 @@
                                 </span>
                             </div>
 
-                            <!-- Price -->
                             <div class="form-group">
                                 <label for="price" class="form-label form-label-required">
                                     <i class="fas fa-money-bill-wave"></i>
@@ -146,7 +140,6 @@
                             </div>
                         </div>
 
-                        <!-- Active Status -->
                         <div class="form-group">
                             <div class="card" style="background: var(--color-neutral-50); padding: var(--space-5);">
                                 <div class="form-checkbox">
@@ -168,7 +161,6 @@
                             </div>
                         </div>
 
-                        <!-- Preview Card -->
                         <div class="form-group">
                             <label class="form-label">
                                 <i class="fas fa-eye"></i>
@@ -198,7 +190,6 @@
                             </div>
                         </div>
 
-                        <!-- Form Actions -->
                         <div class="form-buttons">
                             <a href="${pageContext.request.contextPath}/admin/services" class="btn btn-secondary">
                                 <i class="fas fa-times"></i>

@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,8 +22,6 @@ import model.Availability;
 import model.Barber;
 import model.Offer;
 import service.Service;
-
-
 
 @WebServlet("/client/book-appointment")
 public class BookAppointmentServlet extends HttpServlet {
@@ -58,17 +55,13 @@ public class BookAppointmentServlet extends HttpServlet {
 
         int clientId = (Integer) session.getAttribute("userId");
 
-        // Load client data
         model.Client client = clientDAO.findById(clientId);
 
-        // Load barbers and services
         List<Barber> barbers = barberDAO.findAllActive();
         List<Service> services = serviceDAO.findAllActive();
 
-        // Load unused redeemed offers (offers the client has already redeemed)
         List<model.OfferRedemption> redeemedOffers = offerDAO.findUnusedRedeemedOffersByClient(clientId);
 
-        // Load availability for all barbers (for displaying available time slots)
         java.util.Map<Integer, List<Availability>> barberAvailability = new java.util.HashMap<>();
         for (Barber barber : barbers) {
             List<Availability> availability = availabilityDAO.findByBarberId(barber.getBarberId());
@@ -100,7 +93,6 @@ public class BookAppointmentServlet extends HttpServlet {
             String dateStr = request.getParameter("date");
             String timeStr = request.getParameter("startTime");
 
-            // Optional: redemption ID if client selected a redeemed offer
             String redemptionIdStr = request.getParameter("redemptionId");
             Integer redemptionId = null;
             if (redemptionIdStr != null && !redemptionIdStr.trim().isEmpty()) {
@@ -110,7 +102,6 @@ public class BookAppointmentServlet extends HttpServlet {
             LocalDate date = LocalDate.parse(dateStr);
             LocalTime startTime = LocalTime.parse(timeStr);
 
-            // Get service to calculate end time and price
             Service service = serviceDAO.findById(serviceId);
             if (service == null) {
                 request.setAttribute("error", "Service non trouvé");
@@ -120,16 +111,14 @@ public class BookAppointmentServlet extends HttpServlet {
 
             LocalTime endTime = startTime.plusMinutes(service.getDuration());
 
-            // Calculate final price (apply discount if redemption is used)
             double basePrice = service.getPrice();
             double finalPrice = basePrice;
 
             if (redemptionId != null) {
-                // Apply 10% discount
+                 
                 finalPrice = basePrice * 0.9;
             }
 
-            // Check if barber is available (both schedule and appointments)
             boolean barberAvailable = appointmentDAO.isBarberAvailable(barberId, date, startTime, endTime);
 
             if (!barberAvailable) {
@@ -141,7 +130,6 @@ public class BookAppointmentServlet extends HttpServlet {
                 return;
             }
 
-            // Create appointment
             Appointment appointment = new Appointment();
             appointment.setClientId(clientId);
             appointment.setBarberId(barberId);
@@ -156,12 +144,12 @@ public class BookAppointmentServlet extends HttpServlet {
             boolean success = appointmentDAO.create(appointment);
 
             if (success) {
-                // If a redemption was used, mark it as used
+                 
                 if (redemptionId != null) {
                     try {
                         offerDAO.markRedemptionAsUsed(redemptionId, appointment.getAppointmentId());
                     } catch (Exception e) {
-                        // Continue anyway - appointment was created
+                         
                     }
                 }
 

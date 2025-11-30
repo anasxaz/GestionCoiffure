@@ -1,7 +1,5 @@
 package dao;
 
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +12,7 @@ import service.Service;
 import util.DatabaseUtil;
 
 public class ServiceDAO {
-    
-    /**
-     * Find service by ID
-     */
+
     public Service findById(int serviceId) {
         String sql = "SELECT * FROM Service WHERE service_id = ?";
         
@@ -38,10 +33,7 @@ public class ServiceDAO {
         
         return null;
     }
-    
-    /**
-     * Get all services
-     */
+
     public List<Service> findAll() {
         List<Service> services = new ArrayList<>();
         String sql = "SELECT * FROM Service ORDER BY name";
@@ -61,10 +53,7 @@ public class ServiceDAO {
         
         return services;
     }
-    
-    /**
-     * Get all active services
-     */
+
     public List<Service> findAllActive() {
         List<Service> services = new ArrayList<>();
         String sql = "SELECT * FROM Service WHERE is_active = TRUE ORDER BY name";
@@ -85,12 +74,6 @@ public class ServiceDAO {
         return services;
     }
 
-    /**
-     * Get paginated list of services
-     * @param page Page number (1-based)
-     * @param pageSize Number of records per page
-     * @return List of services for the specified page
-     */
     public List<Service> findAll(int page, int pageSize) {
         List<Service> services = new ArrayList<>();
         int offset = (page - 1) * pageSize;
@@ -115,10 +98,6 @@ public class ServiceDAO {
         return services;
     }
 
-    /**
-     * Get total count of services
-     * @return Total number of services
-     */
     public int getTotalCount() {
         String sql = "SELECT COUNT(*) as total FROM Service";
 
@@ -137,10 +116,7 @@ public class ServiceDAO {
 
         return 0;
     }
-    
-    /**
-     * Create new service
-     */
+
     public boolean create(Service service) {
         String sql = "INSERT INTO Service (name, description, duration, price, is_active) VALUES (?, ?, ?, ?, ?)";
         
@@ -170,10 +146,7 @@ public class ServiceDAO {
         
         return false;
     }
-    
-    /**
-     * Update service
-     */
+
     public boolean update(Service service) {
         String sql = "UPDATE Service SET name = ?, description = ?, duration = ?, price = ?, is_active = ? WHERE service_id = ?";
         
@@ -196,10 +169,7 @@ public class ServiceDAO {
         
         return false;
     }
-    
-    /**
-     * Delete service
-     */
+
     public boolean delete(int serviceId) {
         String sql = "DELETE FROM Service WHERE service_id = ?";
         
@@ -216,10 +186,7 @@ public class ServiceDAO {
         
         return false;
     }
-    
-    /**
-     * Toggle service active status
-     */
+
     public boolean toggleActive(int serviceId) {
         String sql = "UPDATE Service SET is_active = NOT is_active WHERE service_id = ?";
         
@@ -236,10 +203,7 @@ public class ServiceDAO {
         
         return false;
     }
-    
-    /**
-     * Extract Service object from ResultSet
-     */
+
     private Service extractServiceFromResultSet(ResultSet rs) throws SQLException {
         Service service = new Service();
         service.setServiceId(rs.getInt("service_id"));

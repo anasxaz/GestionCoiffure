@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,10 +11,7 @@ import model.Admin;
 import util.DatabaseUtil;
 
 public class AdminDAO {
-    
-    /**
-     * Find admin by email
-     */
+
     public Admin findByEmail(String email) {
         String sql = "SELECT * FROM Admin WHERE email = ?";
         
@@ -36,10 +32,7 @@ public class AdminDAO {
         
         return null;
     }
-    
-    /**
-     * Find admin by ID
-     */
+
     public Admin findById(int adminId) {
         String sql = "SELECT * FROM Admin WHERE admin_id = ?";
         
@@ -60,10 +53,7 @@ public class AdminDAO {
         
         return null;
     }
-    
-    /**
-     * Create new admin
-     */
+
     public boolean create(Admin admin) {
         String sql = "INSERT INTO Admin (name, email, password_hash) VALUES (?, ?, ?)";
         
@@ -91,10 +81,7 @@ public class AdminDAO {
         
         return false;
     }
-    
-    /**
-     * Extract Admin object from ResultSet
-     */
+
     private Admin extractAdminFromResultSet(ResultSet rs) throws SQLException {
         Admin admin = new Admin();
         admin.setAdminId(rs.getInt("admin_id"));

@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,8 +18,6 @@ import dao.ServiceDAO;
 import model.Appointment;
 import model.Client;
 import service.Service;
-
-
 
 @WebServlet("/barber/create-appointment")
 public class BarberCreateAppointmentServlet extends HttpServlet {
@@ -83,7 +80,6 @@ public class BarberCreateAppointmentServlet extends HttpServlet {
 
             LocalTime endTime = startTime.plusMinutes(service.getDuration());
 
-            // Check barber availability (checks both schedule and conflicts)
             boolean isAvailable = appointmentDAO.isBarberAvailable(barberId, date, startTime, endTime);
 
             if (!isAvailable) {
@@ -91,8 +87,7 @@ public class BarberCreateAppointmentServlet extends HttpServlet {
                 doGet(request, response);
                 return;
             }
-            
-            // Create appointment with confirmed status (barber creates it)
+
             Appointment appointment = new Appointment();
             appointment.setClientId(clientId);
             appointment.setBarberId(barberId);

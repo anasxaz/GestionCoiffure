@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="auth-page">
-        <!-- Illustration Side -->
+        
         <div class="auth-illustration-side">
             <div class="auth-illustration-content">
                 <h2>Bienvenue sur GestionCoiffure</h2>
@@ -20,26 +20,23 @@
                     Connectez-vous pour accéder à votre espace personnalisé et profiter
                     de toutes les fonctionnalités de gestion de salon.
                 </p>
-                <!-- Custom SVG Illustration -->
+                
                 <svg class="auth-illustration-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Login illustration: Person with lock -->
+                    
                     <circle cx="200" cy="120" r="50" fill="rgba(255,255,255,0.1)"/>
                     <circle cx="200" cy="120" r="35" fill="white"/>
                     <path d="M 200 155 Q 180 165, 180 185 L 180 210 Q 180 215, 185 215 L 215 215 Q 220 215, 220 210 L 220 185 Q 220 165, 200 155 Z" fill="white"/>
 
-                    <!-- Lock icon -->
                     <rect x="180" y="200" width="40" height="40" rx="8" fill="rgba(37,99,235,0.2)" stroke="#2563eb" stroke-width="2"/>
                     <circle cx="200" cy="220" r="6" fill="#2563eb"/>
                     <rect x="198" y="220" width="4" height="12" fill="#2563eb"/>
 
-                    <!-- Checkmark indicators -->
                     <circle cx="280" cy="100" r="20" fill="rgba(16,185,129,0.2)"/>
                     <path d="M 273 100 L 278 105 L 287 93" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
                     <circle cx="120" cy="140" r="18" fill="rgba(37,99,235,0.2)"/>
                     <path d="M 114 140 L 118 144 L 126 134" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-                    <!-- Decorative elements -->
                     <circle cx="150" cy="80" r="4" fill="rgba(245,158,11,0.6)"/>
                     <circle cx="260" cy="180" r="5" fill="rgba(245,158,11,0.4)"/>
                     <circle cx="100" cy="200" r="3" fill="rgba(255,255,255,0.3)"/>
@@ -48,7 +45,6 @@
             </div>
         </div>
 
-        <!-- Form Side -->
         <div class="auth-form-side">
             <div class="auth-form-container">
                 <div class="auth-header">
@@ -60,7 +56,6 @@
                     <p class="auth-subtitle">Accédez à votre espace de gestion</p>
                 </div>
 
-                <!-- Alerts -->
                 <c:if test="${not empty error}">
                     <div class="alert alert-error">
                         <i class="alert-icon fas fa-exclamation-circle"></i>
@@ -82,7 +77,6 @@
                     </div>
                 </c:if>
 
-                <!-- Login Form -->
                 <form action="${pageContext.request.contextPath}/login" method="post" class="auth-form">
                     <div class="form-group">
                         <label for="userType" class="form-label">Type de compte</label>
