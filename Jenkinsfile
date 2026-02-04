@@ -34,7 +34,13 @@ pipeline {
         
         stage('SonarQube') {
             steps {
-                echo 'SonarQube - Étape 3'
+                withSonarQubeEnv('SonarQube') {
+                    bat """
+                        mvn sonar:sonar ^
+                        -Dsonar.projectKey=gestion-coiffure ^
+                        -Dsonar.host.url=http://localhost:9000
+                    """
+                }
             }
         }
         stage('Java Check') {
