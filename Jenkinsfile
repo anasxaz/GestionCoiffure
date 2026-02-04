@@ -37,6 +37,11 @@ pipeline {
                 echo 'SonarQube - Étape 3'
             }
         }
+        stage('Java Check') {
+            steps {
+                bat 'mvn -version'
+            }
+        }
     }
     
     post {
