@@ -41,7 +41,7 @@ public class AdminDashboardServlet extends HttpServlet {
             totalClients = getTotalClients();
             totalServices = getTotalServices();
         } catch (Exception e) {
-            System.err.println("Error loading dashboard statistics: " + e.getMessage());
+            // System.err.println("Error loading dashboard statistics: " + e.getMessage());
             e.printStackTrace();
         }
 
