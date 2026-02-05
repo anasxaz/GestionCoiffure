@@ -1,39 +1,39 @@
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\service\Service.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\dao\OfferDAO.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\model\Client.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\dao\AvailabilityDAO.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\dao\BarberDAO.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\util\PasswordUtil.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\ManageServicesServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\BarberAppointmentsServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\RegisterServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\ManageOffersServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\dao\AppointmentDAO.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\BookAppointmentServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\model\Offer.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\dao\ServiceDAO.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\model\Appointment.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\ManageBarbersServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\dao\ClientDAO.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\util\DatabaseMigration.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\ClientDashboardServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\model\Admin.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\model\Barber.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\LogoutServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\ClientAppointmentsServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\BarberClientsServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\BarberScheduleServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\AdminAppointmentsServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\util\DatabaseUtil.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\AdminDashboardServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\BarberDashboardServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\BarberCreateAppointmentServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\ViewClientsServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\model\Availability.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\ClientOffersServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\ManageAvailabilityServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\model\OfferRedemption.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\LoginServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\controller\AdminStatisticsServlet.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\dao\AdminDAO.java
-C:\Users\HP\Collections\eclipse\GestionCoiffure\src\main\java\service\AuthenticationService.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\AdminStatisticsServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\dao\AdminDAO.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\AdminDashboardServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\dao\BarberDAO.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\model\Barber.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\ManageOffersServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\model\Admin.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\model\Appointment.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\util\DatabaseMigration.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\service\AuthenticationService.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\dao\AvailabilityDAO.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\LogoutServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\ClientAppointmentsServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\model\OfferRedemption.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\model\Offer.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\LoginServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\ManageAvailabilityServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\dao\AppointmentDAO.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\util\PasswordUtil.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\ClientDashboardServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\dao\ClientDAO.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\ManageBarbersServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\ManageServicesServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\ViewClientsServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\AdminAppointmentsServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\RegisterServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\dao\ServiceDAO.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\BarberCreateAppointmentServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\BookAppointmentServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\BarberDashboardServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\dao\OfferDAO.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\BarberClientsServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\model\Client.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\service\Service.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\ClientOffersServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\util\DatabaseUtil.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\BarberAppointmentsServlet.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\model\Availability.java
+D:\S4 - ENSIAS\DevOps\TPs\Travail\TP_global\GestionCoiffure\src\main\java\controller\BarberScheduleServlet.java

@@ -9,10 +9,12 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.qos.logback.classic.Logger;
 import model.Availability;
 import util.DatabaseUtil;
 
 public class AvailabilityDAO {
+    // private static final Logger logger = Logger.getLogger(AvailabilityDAO.class.getName());
 
     public Availability findById(int availabilityId) {
         String sql = "SELECT * FROM Availability WHERE availability_id = ?";
@@ -28,7 +30,7 @@ public class AvailabilityDAO {
             }
             
         } catch (SQLException e) {
-            System.err.println("Error finding availability by ID: " + e.getMessage());
+            // System.err.println("Error finding availability by ID: " + e.getMessage());
             e.printStackTrace();
         }
         
@@ -50,7 +52,7 @@ public class AvailabilityDAO {
             }
             
         } catch (SQLException e) {
-            System.err.println("Error finding availabilities by barber: " + e.getMessage());
+            // System.err.println("Error finding availabilities by barber: " + e.getMessage());
             e.printStackTrace();
         }
         
@@ -72,7 +74,7 @@ public class AvailabilityDAO {
             }
             
         } catch (SQLException e) {
-            System.err.println("Error finding availability by barber and day: " + e.getMessage());
+            // System.err.println("Error finding availability by barber and day: " + e.getMessage());
             e.printStackTrace();
         }
         
@@ -96,7 +98,7 @@ public class AvailabilityDAO {
             }
             
         } catch (SQLException e) {
-            System.err.println("Error finding all availabilities: " + e.getMessage());
+            // System.err.println("Error finding all availabilities: " + e.getMessage());
             e.printStackTrace();
         }
         
@@ -125,7 +127,7 @@ public class AvailabilityDAO {
             }
             
         } catch (SQLException e) {
-            System.err.println("Error creating availability: " + e.getMessage());
+            // System.err.println("Error creating availability: " + e.getMessage());
             e.printStackTrace();
         }
         
@@ -146,7 +148,7 @@ public class AvailabilityDAO {
             return stmt.executeUpdate() > 0;
             
         } catch (SQLException e) {
-            System.err.println("Error updating availability: " + e.getMessage());
+            // System.err.println("Error updating availability: " + e.getMessage());
             e.printStackTrace();
         }
         
@@ -163,7 +165,7 @@ public class AvailabilityDAO {
             return stmt.executeUpdate() > 0;
             
         } catch (SQLException e) {
-            System.err.println("Error deleting availability: " + e.getMessage());
+            // System.err.println("Error deleting availability: " + e.getMessage());
             e.printStackTrace();
         }
         
@@ -180,7 +182,10 @@ public class AvailabilityDAO {
             return stmt.executeUpdate() >= 0;
             
         } catch (SQLException e) {
-            System.err.println("Error deleting availabilities by barber: " + e.getMessage());
+            // System.err.println("Error deleting availabilities by barber: " + e.getMessage());
+            // log.debug("Error deleting availabilities by barber: " + e.getMessage());
+            // logger.severe("Error deleting availabilities by barber: " + e.getMessage());
+
             e.printStackTrace();
         }
         
