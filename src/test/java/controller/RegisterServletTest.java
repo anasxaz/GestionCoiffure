@@ -65,6 +65,48 @@ class RegisterServletTest {
         verify(dispatcher).forward(request, response);
     }
 
+    @Test
+    void testDoPost_emptyEmail_showsError() throws ServletException, IOException {
+        when(request.getParameter("name")).thenReturn("Jean");
+        when(request.getParameter("email")).thenReturn("  ");
+        when(request.getParameter("password")).thenReturn("password123");
+        when(request.getParameter("confirmPassword")).thenReturn("password123");
+        when(request.getParameter("phone")).thenReturn("0600000000");
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute("error", "Tous les champs sont requis");
+        verify(dispatcher).forward(request, response);
+    }
+
+    @Test
+    void testDoPost_emptyPassword_showsError() throws ServletException, IOException {
+        when(request.getParameter("name")).thenReturn("Jean");
+        when(request.getParameter("email")).thenReturn("jean@test.com");
+        when(request.getParameter("password")).thenReturn("  ");
+        when(request.getParameter("confirmPassword")).thenReturn("  "); // Confirm password also empty to avoid mismatch error
+        when(request.getParameter("phone")).thenReturn("0600000000");
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute("error", "Tous les champs sont requis");
+        verify(dispatcher).forward(request, response);
+    }
+
+    @Test
+    void testDoPost_emptyPhone_showsError() throws ServletException, IOException {
+        when(request.getParameter("name")).thenReturn("Jean");
+        when(request.getParameter("email")).thenReturn("jean@test.com");
+        when(request.getParameter("password")).thenReturn("password123");
+        when(request.getParameter("confirmPassword")).thenReturn("password123");
+        when(request.getParameter("phone")).thenReturn("  ");
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute("error", "Tous les champs sont requis");
+        verify(dispatcher).forward(request, response);
+    }
+
     // --- doPost : format email invalide ---
     @Test
     void testDoPost_emailInvalide_affichError() throws ServletException, IOException {

@@ -99,6 +99,8 @@ class BookAppointmentServletTest {
         verify(request, never()).getRequestDispatcher(anyString());
     }
 
+
+
     @Test
     void testDoGet_validSession_forwardWithData() throws ServletException, IOException {
         List<Barber> barbers = List.of(new Barber(1, "Paul", "paul@test.com", "hash", "0600", "Bio", "active", null));
@@ -112,6 +114,100 @@ class BookAppointmentServletTest {
         verify(request).setAttribute("barbers", barbers);
         verify(request).setAttribute("services", services);
         verify(dispatcher).forward(request, response);
+    }
+
+    // New test case: Invalid barberId format
+    @Test
+    void testDoPost_invalidBarberId_errorMessage() throws ServletException, IOException {
+        lenient().when(request.getParameter("barberId")).thenReturn("invalid");
+        lenient().when(request.getParameter("serviceId")).thenReturn("1");
+        lenient().when(request.getParameter("date")).thenReturn("2024-12-25");
+        lenient().when(request.getParameter("startTime")).thenReturn("10:00");
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute(eq("error"), contains("Erreur: For input string: \"invalid\""));
+        verify(dispatcher).forward(request, response);
+    }
+
+    // New test case: Invalid serviceId format
+    @Test
+    void testDoPost_invalidServiceId_errorMessage() throws ServletException, IOException {
+        lenient().when(request.getParameter("barberId")).thenReturn("1");
+        lenient().when(request.getParameter("serviceId")).thenReturn("invalid");
+        lenient().when(request.getParameter("date")).thenReturn("2024-12-25");
+        lenient().when(request.getParameter("startTime")).thenReturn("10:00");
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute(eq("error"), contains("Erreur: For input string: \"invalid\""));
+        verify(dispatcher).forward(request, response);
+    }
+
+    // New test case: Invalid date format
+    @Test
+    void testDoPost_invalidDateFormat_errorMessage() throws ServletException, IOException {
+        lenient().when(request.getParameter("barberId")).thenReturn("1");
+        lenient().when(request.getParameter("serviceId")).thenReturn("1");
+        lenient().when(request.getParameter("date")).thenReturn("invalid-date");
+        lenient().when(request.getParameter("startTime")).thenReturn("10:00");
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute(eq("error"), contains("Erreur: Text 'invalid-date' could not be parsed at index 0"));
+        verify(dispatcher).forward(request, response);
+    }
+
+    // New test case: Invalid startTime format
+    @Test
+    void testDoPost_invalidStartTimeFormat_errorMessage() throws ServletException, IOException {
+        lenient().when(request.getParameter("barberId")).thenReturn("1");
+        lenient().when(request.getParameter("serviceId")).thenReturn("1");
+        lenient().when(request.getParameter("date")).thenReturn("2024-12-25");
+        lenient().when(request.getParameter("startTime")).thenReturn("invalid-time");
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute(eq("error"), contains("Erreur: Text 'invalid-time' could not be parsed at index 0"));
+        verify(dispatcher).forward(request, response);
+    }
+
+    // New test case: Invalid redemptionId format
+    @Test
+    void testDoPost_invalidRedemptionIdFormat_errorMessage() throws ServletException, IOException {
+        service.Service service = new service.Service(1, "Coupe", "Coupe classique", 30, 20.0, true);
+        lenient().when(request.getParameter("barberId")).thenReturn("1");
+        lenient().when(request.getParameter("serviceId")).thenReturn("1");
+        lenient().when(request.getParameter("date")).thenReturn("2024-12-25");
+        lenient().when(request.getParameter("startTime")).thenReturn("10:00");
+        lenient().when(request.getParameter("redemptionId")).thenReturn("invalid");
+        // Removed when(serviceDAO.findById(1)).thenReturn(service); in previous step
+
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute(eq("error"), contains("Erreur: For input string: \"invalid\""));
+        verify(dispatcher).forward(request, response);
+    }
+
+    // New test case: offerDAO.markRedemptionAsUsed throws Exception
+    @Test
+    void testDoPost_markRedemptionAsUsedThrowsException_errorMessage() throws ServletException, IOException {
+        service.Service service = new service.Service(1, "Coupe", "Coupe classique", 30, 20.0, true);
+        when(request.getParameter("serviceId")).thenReturn("1");
+        when(request.getParameter("barberId")).thenReturn("2");
+        when(request.getParameter("date")).thenReturn("2024-12-25");
+        when(request.getParameter("startTime")).thenReturn("10:00");
+        when(request.getParameter("redemptionId")).thenReturn("5");
+        when(serviceDAO.findById(1)).thenReturn(service);
+        when(appointmentDAO.isBarberAvailable(eq(2), any(LocalDate.class), any(LocalTime.class), any(LocalTime.class))).thenReturn(true);
+        when(appointmentDAO.create(any(Appointment.class))).thenReturn(true);
+        doThrow(new RuntimeException("Offer DAO error")).when(offerDAO).markRedemptionAsUsed(eq(5), anyInt());
+
+        servlet.doPost(request, response);
+
+        verify(response).sendRedirect(request.getContextPath() + "/client/appointments?success=created");
+        verify(request, never()).setAttribute(eq("error"), anyString());
     }
 
     @Test

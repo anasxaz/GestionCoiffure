@@ -71,6 +71,30 @@ class LoginServletTest {
         verify(dispatcher).forward(request, response);
     }
 
+    @Test
+    void testDoPost_emptyPassword_showsError() throws ServletException, IOException {
+        when(request.getParameter("email")).thenReturn("test@test.com");
+        when(request.getParameter("password")).thenReturn("  ");
+        when(request.getParameter("userType")).thenReturn("client");
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute("error", "Tous les champs sont requis");
+        verify(dispatcher).forward(request, response);
+    }
+
+    @Test
+    void testDoPost_emptyUserType_showsError() throws ServletException, IOException {
+        when(request.getParameter("email")).thenReturn("test@test.com");
+        when(request.getParameter("password")).thenReturn("password123");
+        when(request.getParameter("userType")).thenReturn("  ");
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute("error", "Tous les champs sont requis");
+        verify(dispatcher).forward(request, response);
+    }
+
     // --- doPost : connexion admin réussie ---
     @Test
     void testDoPost_connexionAdminReussie_redirectDashboard() throws ServletException, IOException {
